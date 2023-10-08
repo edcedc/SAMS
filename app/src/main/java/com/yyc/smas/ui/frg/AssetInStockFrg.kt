@@ -104,6 +104,7 @@ class AssetInStockFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
             }
             adapter.addData(0, it)
 
+
             //过滤重复在库的操作 /增加在库
             /*if (it.InventoryStatus == INVENTORY_STOCK){
                 adapter.data.filterIndexed { index, bean ->
