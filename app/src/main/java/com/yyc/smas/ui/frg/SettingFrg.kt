@@ -91,7 +91,6 @@ class SettingFrg: BaseFragment<SettingModel, FSettingBinding>() {
                 showToast(getString(R.string.hiht_))
                 return
             }
-            ApiService.SERVLET_URL = CacheUtil.getUrl()
             CacheUtil.setUrl(mViewModel.host.get())
             CacheUtil.setCompanyID(mViewModel.companyId.get())
             showToast(getString(R.string.release_success))

@@ -3,10 +3,12 @@ package com.yyc.smas.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.yyc.smas.R
 import com.yyc.smas.bean.DataBean
 import com.yyc.smas.network.REQUEST_SUCCESS
 import com.yyc.smas.network.apiService
 import com.yyc.smas.network.stateCallback.ListDataUiState
+import me.hgj.jetpackmvvm.base.appContext
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.callback.databind.StringObservableField
 import me.hgj.jetpackmvvm.ext.request
@@ -94,14 +96,16 @@ class ExternalModel: BaseViewModel(){
         requestNoCheck({ apiService.GetUpdateExteriorBorrowingApp(orderId!!, str.toString())},{
             if (it.code == REQUEST_SUCCESS){
                 listClearArray.value = str
+                ToastUtils.showShort(appContext.getText(R.string.text4))
+            }else{
+                ToastUtils.showShort(appContext.getText(R.string.text9))
             }
-            ToastUtils.showShort(it.ErrorMessage)
         },{
             //请求失败 网络异常回调在这里
             loadingChange.dismissDialog
             ToastUtils.showShort(it.throwable!!.message)
             LogUtils.e(it.throwable, it.throwable!!.message)
-        }, true)
+        }, true, appContext.getString(R.string.loading))
     }
 
     fun onRequestText(title: String?, bean: String?) {

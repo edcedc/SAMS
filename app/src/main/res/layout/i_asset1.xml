@@ -24,14 +24,23 @@
         app:layout_constraintTop_toBottomOf="@id/tv_text" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintLeft_toRightOf="@id/tv_title"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        android:id="@+id/tv_fen"
+        android:text="："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title1"
         style="@style/Tv12black"
         android:layout_marginRight="5dp"
         android:layout_width="0dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_title"
         app:layout_constraintRight_toLeftOf="@id/iv_image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_title" />
+        app:layout_constraintTop_toTopOf="@id/tv_fen"
+        app:layout_constraintLeft_toRightOf="@id/tv_fen"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_location"
@@ -42,14 +51,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title1" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintLeft_toRightOf="@id/tv_location"
+        app:layout_constraintTop_toTopOf="@id/tv_location"
+        app:layout_constraintBottom_toBottomOf="@id/tv_location"
+        android:id="@+id/tv_fen1"
+        android:text="："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_location1"
         style="@style/Tv12black"
         android:layout_width="0dp"
         android:layout_marginRight="5dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_location"
+        app:layout_constraintLeft_toRightOf="@id/tv_fen1"
         app:layout_constraintRight_toLeftOf="@id/iv_image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_location" />
+        app:layout_constraintTop_toTopOf="@id/tv_fen1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_fen1"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_epc"
@@ -60,14 +79,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_location1" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintLeft_toRightOf="@id/tv_epc"
+        app:layout_constraintTop_toTopOf="@id/tv_epc"
+        app:layout_constraintBottom_toBottomOf="@id/tv_epc"
+        android:id="@+id/tv_fen2"
+        android:text="："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_epc1"
         style="@style/Tv12black"
         android:layout_width="0dp"
         android:layout_marginRight="5dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_epc"
+        app:layout_constraintLeft_toRightOf="@id/tv_fen2"
         app:layout_constraintRight_toLeftOf="@id/iv_image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_epc" />
+        app:layout_constraintTop_toTopOf="@id/tv_fen2"
+        app:layout_constraintBottom_toBottomOf="@id/tv_fen2"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_type"
@@ -78,14 +107,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_epc" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintLeft_toRightOf="@id/tv_type"
+        app:layout_constraintTop_toTopOf="@id/tv_type"
+        app:layout_constraintBottom_toBottomOf="@id/tv_type"
+        android:id="@+id/tv_fen3"
+        android:text="："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_type1"
         style="@style/Tv12black"
         android:layout_width="0dp"
         android:layout_marginRight="5dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_type"
+        app:layout_constraintLeft_toRightOf="@id/tv_fen3"
         app:layout_constraintRight_toLeftOf="@id/iv_image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_type" />
+        app:layout_constraintTop_toTopOf="@id/tv_fen3"
+        app:layout_constraintBottom_toBottomOf="@id/tv_fen3"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_image"

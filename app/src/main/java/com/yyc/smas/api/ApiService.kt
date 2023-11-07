@@ -21,8 +21,8 @@ interface ApiService{
     companion object {
 
         private val url =
-            "192.168.2.31"
-//            "47.243.120.137"
+//            "192.168.2.31"
+            "47.243.120.137"
 
         var SERVLET_URL = "http://" +
                 url + "/SAMSwebservice/MobileWebService.asmx/"
@@ -79,6 +79,14 @@ interface ApiService{
     suspend fun GetInsideOrderBorrowingDetailsAPP(
         @Field("type") type: Int,
         @Field("All") All: String,
+        @Field("UnitCode") companyid: String  = CacheUtil.getCompanyID()
+    ): BaseListBean<ArrayList<DataBean>>
+
+    // 内部扫码借阅
+    @FormUrlEncoded
+    @POST("GetInsideOrderBorrowingDetailsAPP")
+    suspend fun GetInsideOrderBorrowingDetailsAPP(
+        @Field("type") type: String?,
         @Field("UnitCode") companyid: String  = CacheUtil.getCompanyID()
     ): BaseListBean<ArrayList<DataBean>>
 

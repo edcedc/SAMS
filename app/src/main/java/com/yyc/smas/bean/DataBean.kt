@@ -38,5 +38,6 @@ data class DataBean(
     var BorrowDate: String? = null,
     var Phone: String? = null,
     var Progress: String? = null,
-    var Password: String? = null
+    var Password: String? = null,
+    var StatusID: Int = 0
 ) : Parcelable

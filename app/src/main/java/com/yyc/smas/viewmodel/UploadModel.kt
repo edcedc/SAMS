@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.Gson
+import com.yyc.smas.R
 import com.yyc.smas.SingleLiveEvent
 import com.yyc.smas.bean.AppRoomDataBase
 import com.yyc.smas.bean.dao.UploadOrderDao
@@ -17,6 +18,7 @@ import com.yyc.smas.network.stateCallback.ListDataUiState
 import com.yyc.smas.util.CacheUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import me.hgj.jetpackmvvm.base.appContext
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.ext.requestNoCheck
 import java.util.ArrayList
@@ -88,8 +90,10 @@ class UploadModel: BaseViewModel(){
 
                     uploadOrderListDao.deleteById(RoNo, companyId, bean.orderId)
                 }
+                ToastUtils.showShort(appContext.getText(R.string.text4))
+            }else{
+                ToastUtils.showShort(appContext.getText(R.string.text9))
             }
-            ToastUtils.showShort(it.ErrorMessage)
         }, {
             //请求失败 网络异常回调在这里
             loadingChange.dismissDialog

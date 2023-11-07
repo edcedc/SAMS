@@ -30,14 +30,6 @@ class SplashAct : BaseActivity<BaseViewModel, ASplashBinding>(){
 
     override fun initView(savedInstanceState: Bundle?) {
         setHasPermission()
-
-        //初始化url
-        val url = CacheUtil.getUrl()
-        if (url.isEmpty()){
-            CacheUtil.setUrl(ApiService.SERVLET_URL)
-        }else{
-            ApiService.SERVLET_URL = url
-        }
     }
 
     /**

@@ -113,7 +113,7 @@ class UIHelper private constructor() {
         }
 
         /**
-         *  内部借出
+         *  注销
          */
         fun starDisposalFrg(nav: NavController) {
             val bundle = Bundle()

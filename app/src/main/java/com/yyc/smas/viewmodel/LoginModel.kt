@@ -1,11 +1,14 @@
 package com.yyc.smas.viewmodel
 
 import android.view.View
+import android.widget.Switch
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.yyc.smas.R
 import com.yyc.smas.api.UIHelper
 import com.yyc.smas.bean.BaseResponseBean
 import com.yyc.smas.bean.DataBean
@@ -13,6 +16,7 @@ import com.yyc.smas.bean.db.OrderBean
 import com.yyc.smas.mar.appViewModel
 import com.yyc.smas.network.apiService
 import com.yyc.smas.util.CacheUtil
+import me.hgj.jetpackmvvm.base.appContext
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.callback.databind.BooleanObservableField
 import me.hgj.jetpackmvvm.callback.databind.StringObservableField
@@ -77,16 +81,21 @@ class LoginModel: BaseViewModel() {
                     appViewModel.userInfo.value = data!!
                     UIHelper.startMainAct()
                     ActivityUtils.finishAllActivities()
-                }else{
-                    ToastUtils.showShort(it.msg)
                 }
+            }
+            if (StringUtils.isEmpty(it.ErrorMessage)){
+
+            }else if (it.ErrorMessage.equals("103")){
+                ToastUtils.showShort("Account password error")
+            }else{
+                ToastUtils.showShort(it.ErrorMessage)
             }
         },{
             //请求失败 网络异常回调在这里
             loadingChange.dismissDialog
             ToastUtils.showShort(it.throwable!!.message)
             LogUtils.e(it.throwable, it.throwable!!.message)
-        }, true)
+        }, true, appContext.getString(R.string.loading))
     }
 
 }

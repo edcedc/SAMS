@@ -31,7 +31,11 @@ class ExternalAdapter (data: ArrayList<DataBean>) :
             viewHolder.setText(R.id.tv_text, bean.OrderNo + " | " + bean.us)
             bean.Title = viewHolder.getView<AppCompatTextView>(R.id.tv_text).text.toString()
             viewHolder.setText(R.id.tv_title1, "：" + bean.org)
-            viewHolder.setText(R.id.tv_location1, "：" + bean.BorrowDate)
+            var BorrowDate = bean.BorrowDate
+            if (BorrowDate!!.contains("00:00:00")){
+                BorrowDate = BorrowDate.substring(0, 10)
+            }
+            viewHolder.setText(R.id.tv_location1, "：" + BorrowDate)
             viewHolder.setText(R.id.tv_epc1, "：" + bean.Phone)
             viewHolder.setText(R.id.tv_progress1, "：" + bean.Progress)
         }
