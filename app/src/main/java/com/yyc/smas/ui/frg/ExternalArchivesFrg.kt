@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.core.LoadService
@@ -69,7 +70,7 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
         }
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as DataBean
+                val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
                 UIHelper.startDisposalDetailsFrg(nav(), bean, title)
@@ -119,13 +120,16 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
         eventViewModel.zkingType.observeInFragment(this, Observer {
             if (it.type == EXTERNAL_ARCHIVES_TYPE) {
                 val indexList = mutableListOf<Int>()
-                adapter.data.filterIndexed { index, bean ->
-                    val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.text)) || bean.AssetNo.equals(it.text)
-                    // 将满足条件的索引添加到 indexList
-                    if (shouldBeIncluded) {
-                        indexList.add(index)
+                val split = it.text?.split(",")
+                split?.forEach {it
+                    adapter.data.filterIndexed { index, bean ->
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        // 将满足条件的索引添加到 indexList
+                        if (shouldBeIncluded) {
+                            indexList.add(index)
+                        }
+                        shouldBeIncluded
                     }
-                    shouldBeIncluded
                 }
                 if (indexList.size == 0) {
                     showToast(getString(R.string.text5))

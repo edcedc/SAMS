@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.core.LoadService
@@ -33,6 +34,7 @@ import com.yyc.smas.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.ext.nav
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.Locale
 
 /**
  * @Author nike
@@ -62,8 +64,9 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
         }
         adapter.run {
             setNbOnItemClickListener { adapter, view, position ->
-                val bean = adapter.data[position] as DataBean
-                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+                val bean = mFilterList[position] as DataBean
+                bean.type = if (bean.type == 1) 0 else 1
+                setData(position, bean)
             }
         }
 
@@ -74,6 +77,7 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
             mViewModel.onRequestDetails(null, RFID_ARCHIVES)
         }
 
+        mDatabind.swipeRefresh.isEnabled = false
         //初始化 SwipeRefreshLayout  刷新
         mDatabind.swipeRefresh.init {
             mViewModel.onRequestDetails(null, RFID_ARCHIVES)
@@ -96,6 +100,18 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
 
     override fun createObserver() {
         super.createObserver()
+        mViewModel.listInsideOrder.observe(viewLifecycleOwner, {
+            var filter = it.filterIndexed { index, dataBean ->
+                val first = dataBean.QRCode?.first()?.lowercase(Locale.getDefault())
+                (first!!.contains("a"))
+            }
+            adapter.addData(filter)
+            adapter.appendList(adapter.data)
+
+            if (!StringUtils.isEmpty(searchText)){
+                adapter!!.filter.filter(searchText)
+            }
+        })
         mViewModel.listBooKArchivesData.observe(viewLifecycleOwner, {
             loadListData(it, adapter, loadsir, mDatabind.recyclerView, mDatabind.swipeRefresh, it.pageSize)
             adapter.appendList(it.listData)
@@ -110,6 +126,7 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
         //扫码
         eventViewModel.zkingType.observeInFragment(this, Observer {
             if (it.type == INTERNAL_ARCHIVES_TYPE) {
+                mViewModel.onGetInsideOrder(it.text)
                 val indexList = mutableListOf<Int>()
                 adapter.data.filterIndexed { index, bean ->
                     val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.text)) || bean.AssetNo.equals(it.text)
@@ -119,12 +136,12 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
                     }
                     shouldBeIncluded
                 }
-                if (indexList.size == 0) {
-                    showToast(getString(R.string.text5))
+                if (indexList.size != 0) {
+//                    showToast(getString(R.string.text5))
                     return@Observer
                 }
                 //更新item状态
-                indexList.forEachIndexed() { index, i ->
+                /*indexList.forEachIndexed() { index, i ->
                     val bean = adapter.data[i]
                     bean.type = if (bean.type == 1) 0 else 1
                     adapter.setData(i, bean)
@@ -133,7 +150,7 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
                     if (!StringUtils.isEmpty(searchText)){
                         adapter!!.filter.filter(searchText)
                     }
-                }
+                }*/
             }
         })
         //提交
@@ -190,7 +207,7 @@ class InternalArchivesFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>
 
     override fun lazyLoadData() {
         //设置界面 加载中
-        loadsir.showLoading()
-        mViewModel.onRequestDetails(null, RFID_ARCHIVES)
+//        loadsir.showLoading()
+//        mViewModel.onRequestDetails(null, RFID_ARCHIVES)
     }
 }

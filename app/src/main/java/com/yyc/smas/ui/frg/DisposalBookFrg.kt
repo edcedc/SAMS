@@ -67,7 +67,7 @@ class DisposalBookFrg: BaseFragment<DisposalModel, BNotTitleRecyclerBinding>() {
         }
         adapter.run {
             setNbOnItemClickListener { adapter, view, position ->
-                val bean = adapter.data[position] as DataBean
+                val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
                 UIHelper.startDisposalDetailsFrg(nav(), bean, title)
@@ -118,13 +118,16 @@ class DisposalBookFrg: BaseFragment<DisposalModel, BNotTitleRecyclerBinding>() {
         eventViewModel.zkingType.observeInFragment(this, Observer {
             if (it.type == DISPOSAL_BOOK_TYPE) {
                 val indexList = mutableListOf<Int>()
-                adapter.data.filterIndexed { index, bean ->
-                    val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.text)) || bean.AssetNo.equals(it.text)
-                    // 将满足条件的索引添加到 indexList
-                    if (shouldBeIncluded) {
-                        indexList.add(index)
+                val split = it.text?.split(",")
+                split?.forEach {it
+                    adapter.data.filterIndexed { index, bean ->
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        // 将满足条件的索引添加到 indexList
+                        if (shouldBeIncluded) {
+                            indexList.add(index)
+                        }
+                        shouldBeIncluded
                     }
-                    shouldBeIncluded
                 }
                 if (indexList.size == 0) {
                     showToast(getString(R.string.text5))

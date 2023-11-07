@@ -41,6 +41,8 @@ class InternalModel: BaseViewModel(){
 
     var listBooKArchivesData: MutableLiveData<ListDataUiState<DataBean>> = MutableLiveData()
 
+    var listInsideOrder: MutableLiveData<List<DataBean>> = MutableLiveData()
+
     val pagerNumber: Int = 1
 
     fun onRequest() {
@@ -97,14 +99,16 @@ class InternalModel: BaseViewModel(){
         requestNoCheck({ apiService.GetupdateInsideBorrowingApp(str.toString())},{
             if (it.code == REQUEST_SUCCESS){
                 listClearArray.value = str
+                ToastUtils.showShort(appContext.getText(R.string.text4))
+            }else{
+                ToastUtils.showShort(appContext.getText(R.string.text9))
             }
-            ToastUtils.showShort(it.ErrorMessage)
         },{
             //请求失败 网络异常回调在这里
             loadingChange.dismissDialog
             ToastUtils.showShort(it.throwable!!.message)
             LogUtils.e(it.throwable, it.throwable!!.message)
-        }, true)
+        }, true, appContext.getString(R.string.loading))
     }
 
     fun onRequestText(title: String?, bean: String?) {
@@ -126,6 +130,26 @@ class InternalModel: BaseViewModel(){
         jsonObject.put("list", ja)
         jsonArray.put(jsonObject)
         listJsonArray.value = jsonArray
+    }
+
+    fun onGetInsideOrder(text: String?) {
+        request({ apiService.GetInsideOrderBorrowingDetailsAPP(text)},{
+            if (it != null){
+                if (it.size != 0){
+                    var filter = it.filterIndexed { index, dataBean ->
+                        (dataBean.StatusID == 2)
+                    }
+                    listInsideOrder.value = filter
+                }else{
+                    ToastUtils.showShort(appContext.getText(R.string.text5))
+                }
+            }
+        },{
+            //请求失败 网络异常回调在这里
+            loadingChange.dismissDialog
+            ToastUtils.showShort(it.throwable!!.message)
+            LogUtils.e(it.throwable, it.throwable!!.message)
+        }, true, appContext.getString(R.string.loading))
     }
 
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.LogUtils
 import com.yyc.smas.R
@@ -168,8 +169,11 @@ class OrderFrg : BaseFragment<OrderModel, FOrderBinding>(), NavigationView.OnNav
                 }
 
                 R.id.nav_login -> {
-                    CacheUtil.setUser(DataBean(Password = null))
+                    val user = CacheUtil.getUser()
+                    user?.Password = null
+                    CacheUtil.setUser(user)
                     UIHelper.startLoginAct()
+                    ActivityUtils.finishAllActivities()
                 }
             }
             mDatabind.drawerLayout.closeDrawer(GravityCompat.END)

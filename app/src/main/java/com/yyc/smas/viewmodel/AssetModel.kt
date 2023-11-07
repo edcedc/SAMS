@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.google.gson.Gson
 import com.yyc.smas.R
 import com.yyc.smas.bean.AppRoomDataBase
 import com.yyc.smas.bean.RfidStateBean
@@ -61,9 +62,11 @@ open class AssetModel : BaseViewModel() {
 
     var isShowDialog: MutableLiveData<Boolean> = MutableLiveData()
 
+    val roNo = CacheUtil.getUser()?.RoNo
+
+    val companyId = CacheUtil.getCompanyID()
+
     fun onRequest(orderId: String?, status: Int) {
-        val roNo = CacheUtil.getUser()?.RoNo
-        val companyId = CacheUtil.getCompanyID()
         val assetDao = AppRoomDataBase.get().getAssetDao()
         var list: ArrayList<AssetBean>
         viewModelScope.launch(Dispatchers.IO) {
@@ -77,6 +80,7 @@ open class AssetModel : BaseViewModel() {
     }
 
     fun onRequestText(bean: String?) {
+        var asstBean = Gson().fromJson(bean, AssetBean::class.java)
         val bean = JSONObject(bean)
         Flowable.fromCallable {
             val list = JSONArray()
@@ -90,6 +94,7 @@ open class AssetModel : BaseViewModel() {
                 var tagObt = JSONObject()
                 tagObt.put("title", headerkey)
                 tagObt.put("text", headerValue)
+
                 if (headerkey.equals("data")) {
                     val data = JSONObject(bean.optString("data"))
                     val headerkeys: Iterator<String> = data.keys()
@@ -113,7 +118,22 @@ open class AssetModel : BaseViewModel() {
                         list.put(twoData)
                     }
                 } else {
-                    oneArray.put(tagObt)
+                    if (headerkey.equals("RoNo") || headerkey.equals("AssetNo")
+                        || headerkey.equals("ArchivesNo") || headerkey.equals("ids")
+                        || headerkey.equals("uid") || headerkey.equals("type")
+                        || headerkey.equals("imageList") || headerkey.equals("OrderRoNo")
+                        || headerkey.equals("LibraryCallNo")|| headerkey.equals("status")){
+
+                    }else{
+                        if (headerkey.equals("Remarks")){
+                            tagObt.put("text", asstBean.Remarks)
+                        }else if (headerkey.equals("FoundStatus") || headerkey.equals("scanStatus")){
+                            tagObt.put("text", asstBean.scanStatus)
+                        }else if (headerkey.equals("scanTime")){
+                            tagObt.put("text", asstBean.scanTime)
+                        }
+                        oneArray.put(tagObt)
+                    }
                 }
             }
             oneData.put("list", oneArray)

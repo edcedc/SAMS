@@ -1,11 +1,13 @@
 package com.yyc.smas.util
 
 import android.text.TextUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.yyc.smas.bean.DataBean
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tencent.mmkv.MMKV
+import com.yc.tea.api.ApiService
 
 object CacheUtil {
     /**
@@ -51,7 +53,7 @@ object CacheUtil {
         val kv = MMKV.mmkvWithID("app")
         val s = kv.decodeString("url")
         if (StringUtils.isEmpty(s)){
-            return ""
+            return ApiService.SERVLET_URL
         }else{
             return s!!
         }
@@ -72,7 +74,7 @@ object CacheUtil {
         val kv = MMKV.mmkvWithID("app")
         val s = kv.decodeString("companyID")
         if (StringUtils.isEmpty(s)){
-            return "SAMS"
+            return "iml"
         }else{
             return s!!
         }

@@ -24,6 +24,9 @@
     <!-- 播放声音 -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
+    <!-- 神坑 com.yanzhenjie:permission 不然android12安装失败-->
+    <permission-group android:name="com.yyc.smas.andpermission"/>
+
     <application
         android:allowBackup="true"
         android:name=".mar.MyApplication"
