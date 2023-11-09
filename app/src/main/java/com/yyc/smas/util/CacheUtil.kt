@@ -74,7 +74,7 @@ object CacheUtil {
         val kv = MMKV.mmkvWithID("app")
         val s = kv.decodeString("companyID")
         if (StringUtils.isEmpty(s)){
-            return "iml"
+            return "SAMS"
         }else{
             return s!!
         }

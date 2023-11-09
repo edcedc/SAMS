@@ -93,16 +93,6 @@ class ExternalFrg2: BaseFragment<ExternalModel, FExternalBaorrow2Binding>() {
         })
     }
 
-    override fun lazyLoadData() {
-        //设置界面 加载中
-//        loadsir.showLoading()
-    }
-
-    override fun createObserver() {
-        super.createObserver()
-
-    }
-
     inner class ProxyClick() {
 
         fun state(){

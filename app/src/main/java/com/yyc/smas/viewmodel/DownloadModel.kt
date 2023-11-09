@@ -2,7 +2,6 @@ package com.yyc.smas.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yyc.smas.bean.AppRoomDataBase
 import com.yyc.smas.bean.db.AssetBean
@@ -14,11 +13,9 @@ import com.yyc.smas.network.apiService
 import com.yyc.smas.network.stateCallback.ListDataUiState
 import com.yyc.smas.util.CacheUtil
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
@@ -229,7 +226,7 @@ class DownloadModel: BaseViewModel() {
         })
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         compositeDisposable?.dispose()
         compositeDisposable2?.dispose()

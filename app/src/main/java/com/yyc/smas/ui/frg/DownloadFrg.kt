@@ -2,6 +2,7 @@ package com.yyc.smas.ui.frg
 
 import android.animation.TimeInterpolator
 import android.os.Bundle
+import android.os.Handler
 import android.widget.SeekBar
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
@@ -97,6 +98,7 @@ class DownloadFrg : BaseFragment<DownloadModel, FDownloadBinding>() {
                 super.onDestroy(owner)
                 compositeDisposable?.dispose()
                 mActivity.setSupportActionBar(null)
+                mViewModel.onCleared()
             }
         })
     }
@@ -128,8 +130,13 @@ class DownloadFrg : BaseFragment<DownloadModel, FDownloadBinding>() {
                             }
                             LogUtils.i(number, result)
 
-                                if (number >= it.pageSize){
+                            if (number >= it.pageSize){
                                 compositeDisposable?.dispose()
+                                runOnUiThread {
+                                    Handler().postDelayed({
+                                        mDatabind.tvText.text = "Sync Success"
+                                    }, 1200) // 延迟1秒（即1000毫秒）
+                                }
                             }
                         }
                 }

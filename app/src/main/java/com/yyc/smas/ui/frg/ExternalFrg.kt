@@ -47,7 +47,7 @@ class ExternalFrg: BaseFragment<ExternalModel, FDisposalBinding>() {
 
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as DataBean
+                val bean = mFilterList[position]
                 UIHelper.starExternalFrg2(nav(), bean.OrderNo, bean.Title!!)
             }
         }

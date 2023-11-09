@@ -73,7 +73,7 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
                 val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
-                UIHelper.startDisposalDetailsFrg(nav(), bean, title)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
             }
         }
 
@@ -140,6 +140,9 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
                     val bean = adapter.data[i]
                     bean.type = if (bean.type == 1) 0 else 1
                     adapter.setData(i, bean)
+                }
+                if (!StringUtils.isEmpty(searchText)){
+                    adapter!!.filter.filter(searchText)
                 }
             }
         })

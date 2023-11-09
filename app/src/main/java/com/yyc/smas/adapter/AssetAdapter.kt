@@ -31,7 +31,8 @@ class AssetAdapter (data: ArrayList<AssetBean>) :BaseQuickAdapter<AssetBean, Bas
             val bean = mFilterList[viewHolder.layoutPosition]
             viewHolder.setText(R.id.tv_text, bean.AssetNo + " | " + if (bean.type == RFID_BOOK) bean.LibraryCallNo else bean.ArchivesNo)
             viewHolder.setText(R.id.tv_title1, bean.Title)
-            viewHolder.setText(R.id.tv_location1, bean.Location)
+            viewHolder.setText(R.id.tv_location, context.getText(R.string.label_tag))
+            viewHolder.setText(R.id.tv_location1, bean.LabelTag)
             viewHolder.setText(R.id.tv_epc1, if (StringUtils.isEmpty(bean.LabelTag)) "" else bean.LabelTag)
 
             viewHolder.setGone(R.id.tv_type, true)

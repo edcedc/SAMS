@@ -83,17 +83,7 @@ class InternalFrg: BaseFragment<InternalModel, FInternalBinding>() {
         })
     }
 
-    override fun lazyLoadData() {
-        //设置界面 加载中
-//        loadsir.showLoading()
-    }
-
-    override fun createObserver() {
-        super.createObserver()
-    }
-
     inner class ProxyClick() {
-
         fun state(){
             UIHelper.startZxingAct(if (mDatabind.includeViewpager.viewPager.currentItem == 0) INTERNAL_BOOK_TYPE else INTERNAL_ARCHIVES_TYPE)
         }
@@ -101,7 +91,6 @@ class InternalFrg: BaseFragment<InternalModel, FInternalBinding>() {
         fun save(){
             internalModel.submitType.value = if (mDatabind.includeViewpager.viewPager.currentItem == 0) INTERNAL_BOOK_TYPE else INTERNAL_ARCHIVES_TYPE
         }
-
     }
 
 }

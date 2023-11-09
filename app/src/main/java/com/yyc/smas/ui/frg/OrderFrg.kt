@@ -76,7 +76,7 @@ class OrderFrg : BaseFragment<OrderModel, FOrderBinding>(), NavigationView.OnNav
         }
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as OrderBean
+                val bean = mFilterList[position]
                 UIHelper.startAssetFrg(nav(), bean.OrderNo)
             }
         }

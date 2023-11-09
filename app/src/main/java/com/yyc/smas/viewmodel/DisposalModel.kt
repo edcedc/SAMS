@@ -2,9 +2,11 @@ package com.yyc.smas.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yyc.smas.R
 import com.yyc.smas.bean.DataBean
+import com.yyc.smas.ext.EXTERNAL_BOOK_TYPE
 import com.yyc.smas.network.REQUEST_SUCCESS
 import com.yyc.smas.network.apiService
 import com.yyc.smas.network.stateCallback.ListDataUiState
@@ -129,11 +131,33 @@ class DisposalModel: BaseViewModel() {
             var threeData = JSONObject()
             threeData.put("title", headerkey)
             threeData.put("text", headerValue)
-            ja.put(threeData)
+
+            if (headerkey.equals("Location") || headerkey.equals("Time")
+                || headerkey.equals("LibraryCallNo")|| headerkey.equals("LabelTag")
+                || headerkey.equals("Title") || headerkey.equals("Borrowstatus")
+                || headerkey.equals("Author") || headerkey.equals("Editions_Year")
+                || headerkey.equals("Language") || headerkey.equals("Img")
+                || headerkey.equals("ArchivesNo") || headerkey.equals("LevelType")
+                || headerkey.equals("ArchivesYear") || headerkey.equals("ArchivesType")){
+                ja.put(threeData)
+            }
         }
 
         val jsonArray = JSONArray()
         val jsonObject = JSONObject()
+
+        var imgObj = JSONObject();
+        for (i in 0 until ja.length()) {
+            val obj = ja.optJSONObject(i)
+            if (obj.optString("title").equals("Img")){
+                imgObj = obj
+                ja.remove(i)
+                break
+            }
+        }
+        if (imgObj.length() != 0){
+            ja.put(imgObj)
+        }
         jsonObject.put("title", title)
         jsonObject.put("list", ja)
         jsonArray.put(jsonObject)

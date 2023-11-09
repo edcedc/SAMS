@@ -24,32 +24,55 @@ import com.yyc.smas.util.SettingUtil
  */
 class DisposalListAdapter(data: ArrayList<DataBean>, mType: Int) :BaseQuickAdapter<DataBean, BaseViewHolder>(R.layout.i_asset1, data), Filterable {
 
-    var mType: Int = 0
+    var mmType: Int = 0
 
     init {
         setAdapterAnimation(SettingUtil.getListMode())
-        this.mType = mType
+        this.mmType = mType
     }
 
     override fun convert(viewHolder: BaseViewHolder, bean: DataBean) {
         //赋值
         bean.run {
             val bean = mFilterList[viewHolder.layoutPosition]
-            val split = bean.Title?.split("｜")
-            val sb = StringBuffer()
-            split?.forEachIndexed { index, it ->
-                sb.append(it)
-                if (index < split.size - 1) {
-                    sb.append("\n")
-                }
-            }
-            viewHolder.setText(R.id.tv_title1,  sb)
-            viewHolder.setText(R.id.tv_text, bean.AssetNo + " | " + if (StringUtils.isEmpty(bean.LibraryCallNo)) bean.ArchivesType else bean.LibraryCallNo)
-            viewHolder.setText(R.id.tv_location1, bean.Location)
+            bean.mType = mmType
+
+            viewHolder.setText(R.id.tv_text, bean.AssetNo)
 
             viewHolder.setImageResource(R.id.iv_image, if (bean.type == 0) R.mipmap.icon_31 else R.mipmap.icon_30)
-
             when(mType){
+                EXTERNAL_BOOK_TYPE, INTERNAL_BOOK_TYPE, DISPOSAL_BOOK_TYPE ->{
+                    val split = bean.Title?.split("｜")
+                    val sb = StringBuffer()
+                    split?.forEachIndexed { index, it ->
+                        sb.append(it)
+                        if (index < split.size - 1) {
+                            sb.append("\n")
+                        }
+                    }
+                    viewHolder.setText(R.id.tv_title1,  sb)
+                    viewHolder.setText(R.id.tv_location, context.getText(R.string.author))
+                    viewHolder.setText(R.id.tv_location1, bean.Author)
+                }
+                EXTERNAL_ARCHIVES_TYPE, INTERNAL_ARCHIVES_TYPE, DISPOSAL_ARCHIVES_TYPE ->{
+                    viewHolder.setText(R.id.tv_title1,  bean.Title)
+                    val split = bean.ArchivesType?.split("|")
+                    val sb = StringBuffer()
+                    split?.forEachIndexed { index, it ->
+                        sb.append(it)
+                        if (index < split.size - 1) {
+                            sb.append("\n")
+                        }
+                    }
+                    viewHolder.setText(R.id.tv_location, context.getText(R.string.archives_type))
+                    viewHolder.setText(R.id.tv_location1, sb.toString())
+                }
+
+                else -> {
+
+                }
+            }
+            /*when(mType){
                 EXTERNAL_BOOK_TYPE, INTERNAL_BOOK_TYPE, DISPOSAL_BOOK_TYPE ->{
                     viewHolder.setGone(R.id.tv_epc, true)
                     viewHolder.setGone(R.id.tv_epc1, true)
@@ -74,7 +97,7 @@ class DisposalListAdapter(data: ArrayList<DataBean>, mType: Int) :BaseQuickAdapt
                 else -> {
 
                 }
-            }
+            }*/
         }
     }
 
@@ -100,7 +123,7 @@ class DisposalListAdapter(data: ArrayList<DataBean>, mType: Int) :BaseQuickAdapt
                         val bean = data[i]
                         val assetNo = bean.AssetNo
                         val title = bean.Title
-                        val libraryCallNo = bean.LibraryCallNo
+                        val libraryCallNo = bean.Author
                         if (assetNo!!.contains(charString) || title!!.contains(charString) || libraryCallNo!!.contains(charString)) {
                             filteredList.add(bean)
                         }
@@ -131,6 +154,11 @@ class DisposalListAdapter(data: ArrayList<DataBean>, mType: Int) :BaseQuickAdapt
 
     private fun  getFilterList(): List<DataBean>{
         return mFilterList
+    }
+
+    fun isMatchWithPattern(input: String, pattern: String): Boolean {
+        val regex = Regex(pattern, RegexOption.IGNORE_CASE)
+        return regex.matches(input)
     }
 
 }

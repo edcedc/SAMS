@@ -58,7 +58,7 @@ class AssetNoStockFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
         }
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as AssetBean
+                val bean = mFilterList[position]
                 UIHelper.startAssetDetailsFrg(nav(), bean)
             }
         }

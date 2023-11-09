@@ -19,6 +19,7 @@ import com.yyc.smas.api.UIHelper
 import com.yyc.smas.base.BaseFragment
 import com.yyc.smas.bean.DataBean
 import com.yyc.smas.databinding.BNotTitleRecyclerBinding
+import com.yyc.smas.ext.EXTERNAL_ARCHIVES_TYPE
 import com.yyc.smas.ext.INTERNAL_BOOK_TYPE
 import com.yyc.smas.ext.RFID_BOOK
 import com.yyc.smas.ext.init
@@ -66,9 +67,9 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
         adapter.run {
             setNbOnItemClickListener { adapter, view, position ->
                 val bean = mFilterList[position] as DataBean
-                bean.type = if (bean.type == 1) 0 else 1
-                setData(position, bean)
-//                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+//                bean.type = if (bean.type == 1) 0 else 1
+//                setData(position, bean)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
             }
         }
 
@@ -79,7 +80,7 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
             mViewModel.onRequestDetails(null, RFID_BOOK)
         }
 
-        mDatabind.swipeRefresh.isEnabled = false
+        mDatabind.swipeRefresh.isEnabled = true
         //初始化 SwipeRefreshLayout  刷新
         mDatabind.swipeRefresh.init {
             mViewModel.onRequestDetails(null, RFID_BOOK)
@@ -98,6 +99,7 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
             }
 
         })
+        mViewModel.onRequestDetails(null, RFID_BOOK)
     }
 
     override fun createObserver() {
@@ -128,31 +130,31 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
         //扫码
         eventViewModel.zkingType.observeInFragment(this, Observer {
             if (it.type == INTERNAL_BOOK_TYPE) {
-                mViewModel.onGetInsideOrder(it.text)
                 val indexList = mutableListOf<Int>()
-                adapter.data.filterIndexed { index, bean ->
-                    val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.text)) || bean.AssetNo.equals(it.text)
-                    // 将满足条件的索引添加到 indexList
-                    if (shouldBeIncluded) {
-                        indexList.add(index)
+                val split = it.text?.split(",")
+                split?.forEach {it
+                    adapter.data.filterIndexed { index, bean ->
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        // 将满足条件的索引添加到 indexList
+                        if (shouldBeIncluded) {
+                            indexList.add(index)
+                        }
+                        shouldBeIncluded
                     }
-                    shouldBeIncluded
                 }
-                if (indexList.size != 0) {
-//                    showToast(getString(R.string.text5))
+                if (indexList.size == 0) {
+                    showToast(getString(R.string.text5))
                     return@Observer
                 }
-                /*  //更新item状态
-                  indexList.forEachIndexed() { index, i ->
-                      val bean = adapter.data[i]
-                      bean.type = if (bean.type == 1) 0 else 1
-                      adapter.setData(i, bean)
-
-  //                    adapter.appendList(adapter.data)
-                      if (!StringUtils.isEmpty(searchText)){
-                          adapter!!.filter.filter(searchText)
-                      }
-                  }*/
+                //更新item状态
+                indexList.forEachIndexed() { index, i ->
+                    val bean = adapter.data[i]
+                    bean.type = if (bean.type == 1) 0 else 1
+                    adapter.setData(i, bean)
+                }
+                if (!StringUtils.isEmpty(searchText)){
+                    adapter!!.filter.filter(searchText)
+                }
             }
         })
         //提交

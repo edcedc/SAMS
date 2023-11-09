@@ -5,7 +5,6 @@ import com.yyc.smas.bean.BaseResponseBean
 import com.yyc.smas.bean.DataBean
 import com.yyc.smas.bean.db.OrderBean
 import com.yyc.smas.util.CacheUtil
-import okhttp3.RequestBody
 import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -42,7 +41,7 @@ interface ApiService{
     @FormUrlEncoded
     @POST("GetStockTakeNoList")
     suspend fun stockTakeList(
-        @Field("loginID") userid: String = CacheUtil.getUser()!!.RoNo,
+        @Field("loginID") userid: String? = CacheUtil.getUser()?.RoNo,
         @Field("UnitCode") companyid: String  = CacheUtil.getCompanyID()
     ): BaseListBean<ArrayList<OrderBean>>
 

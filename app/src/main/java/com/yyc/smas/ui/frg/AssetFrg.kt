@@ -171,7 +171,17 @@ class AssetFrg: BaseFragment<AssetModel, FAssetBinding>() {
             val tagId = it.tagId?.lowercase(Locale.getDefault())
             mViewModel.viewModelScope.launch(Dispatchers.IO) {
                 //先查找epc
-                var assetBean = assetDao.findLabelTagId(tagId, orderId, roNo, companyID)
+                var assetLabelBean = assetDao.findLabelTagId(tagId, orderId, roNo, companyID)
+                val assetAssetBean = assetDao.findAssetId(tagId, orderId, roNo, companyID)
+                if (assetLabelBean != null){
+                    setAssetBean(assetLabelBean, assetDao, it)
+                }else if (assetAssetBean != null){
+                    setAssetBean(assetAssetBean, assetDao, it)
+                }else{
+                    //全部没有归异常
+                    setAssetFailBean(assetDao, it, roNo, companyID)
+                }
+                /*var assetBean = assetDao.findLabelTagId(tagId, orderId, roNo, companyID)
                 if (assetBean != null){
                     setAssetBean(assetBean, assetDao, it)
                 }else{
@@ -183,7 +193,7 @@ class AssetFrg: BaseFragment<AssetModel, FAssetBinding>() {
                         //全部没有归异常
                         setAssetFailBean(assetDao, it, roNo, companyID)
                     }
-                }
+                }*/
             }
         })
 

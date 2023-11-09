@@ -2,7 +2,12 @@ package com.yyc.smas.util;
 
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,25 +24,33 @@ public class FileUtils {
     // 将字符串写入到文本文件中
     public static void writeTxtToFile(String strcontent) {
         String fileName = getFileName() + ".txt";
-        //生成文件夹之后，再生成文件，不然会出错
+        // 生成文件夹
         makeFilePath(filePath, fileName);
 
-        String strFilePath = filePath + fileName;
+        String strFilePath = filePath + "/" + fileName;
         // 每次写入时，都换行写
         String strContent = strcontent + "\r\n";
+        BufferedWriter bufferedWriter = null;
         try {
             File file = new File(strFilePath);
             if (!file.exists()) {
-                Log.d("TestFile", "Create the file:" + strFilePath);
-                file.getParentFile().mkdirs();
+                Log.d("TestFile", "Create the file: " + strFilePath);
                 file.createNewFile();
             }
-            RandomAccessFile raf = new RandomAccessFile(file, "rwd");
-            raf.seek(file.length());
-            raf.write(strContent.getBytes());
-            raf.close();
+            FileWriter fileWriter = new FileWriter(file, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(strContent);
+            bufferedWriter.flush();
         } catch (Exception e) {
-            Log.e("TestFile", "Error on write File:" + e);
+            Log.e("TestFile", "Error on write File: " + e);
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    Log.e("TestFile", "Error on close BufferedWriter: " + e);
+                }
+            }
         }
     }
 
@@ -52,6 +65,7 @@ public class FileUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e(e);
         }
         return file;
     }
@@ -65,7 +79,7 @@ public class FileUtils {
                 file.mkdir();
             }
         } catch (Exception e) {
-            Log.i("error:", e + "");
+            LogUtils.e(e);
         }
     }
 

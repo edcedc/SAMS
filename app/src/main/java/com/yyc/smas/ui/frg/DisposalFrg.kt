@@ -47,7 +47,7 @@ class DisposalFrg: BaseFragment<DisposalModel, FDisposalBinding>() {
 
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as DataBean
+                val bean = mFilterList[position]
 
                 UIHelper.starDisposalFrg2(nav(), bean.OrderNo, bean.Title!!)
             }

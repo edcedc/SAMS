@@ -38,7 +38,7 @@ import org.json.JSONObject
  * @Date 2023/7/27 11:45
  * @Description
  */
-open class AssetModel : BaseViewModel() {
+open class  AssetModel : BaseViewModel() {
 
     var assetTitle: MutableLiveData<String> = MutableLiveData()
 
@@ -86,54 +86,31 @@ open class AssetModel : BaseViewModel() {
             val list = JSONArray()
             val oneArray = JSONArray()
             val oneData = JSONObject()
-            oneData.put("title", appContext.resources.getString(R.string.detailed))
+            oneData.put("title", asstBean.AssetNo)
             val headerkeys: Iterator<String> = bean.keys()
             while (headerkeys.hasNext()) {
                 val headerkey = headerkeys.next()
                 val headerValue: String = bean.getString(headerkey)
-                var tagObt = JSONObject()
-                tagObt.put("title", headerkey)
-                tagObt.put("text", headerValue)
+                var threeData = JSONObject()
+                threeData.put("title", headerkey)
+                threeData.put("text", headerValue)
 
-                if (headerkey.equals("data")) {
-                    val data = JSONObject(bean.optString("data"))
-                    val headerkeys: Iterator<String> = data.keys()
-                    while (headerkeys.hasNext()) {
-                        val headerkey = headerkeys.next()
-                        val headerValue: String = data.getString(headerkey)
-                        var twoData = JSONObject()
-                        twoData.put("title", headerkey)
-                        var twoArray = JSONArray()
-                        var threeData = JSONObject(headerValue)
-                        val headerkeys: Iterator<String> = threeData.keys()
-                        while (headerkeys.hasNext()) {
-                            val headerkey = headerkeys.next()
-                            val headerValue: String = threeData.getString(headerkey)
-                            var threeData = JSONObject()
-                            threeData.put("title", headerkey)
-                            threeData.put("text", headerValue)
-                            twoArray.put(threeData)
-                            twoData.put("list", twoArray)
-                        }
-                        list.put(twoData)
-                    }
-                } else {
-                    if (headerkey.equals("RoNo") || headerkey.equals("AssetNo")
-                        || headerkey.equals("ArchivesNo") || headerkey.equals("ids")
-                        || headerkey.equals("uid") || headerkey.equals("type")
-                        || headerkey.equals("imageList") || headerkey.equals("OrderRoNo")
-                        || headerkey.equals("LibraryCallNo")|| headerkey.equals("status")){
 
-                    }else{
-                        if (headerkey.equals("Remarks")){
-                            tagObt.put("text", asstBean.Remarks)
-                        }else if (headerkey.equals("FoundStatus") || headerkey.equals("scanStatus")){
-                            tagObt.put("text", asstBean.scanStatus)
-                        }else if (headerkey.equals("scanTime")){
-                            tagObt.put("text", asstBean.scanTime)
-                        }
-                        oneArray.put(tagObt)
+                if (headerkey.equals("RoNo") || headerkey.equals("AssetNo")
+                    || headerkey.equals("ArchivesNo") || headerkey.equals("ids")
+                    || headerkey.equals("uid") || headerkey.equals("type")
+                    || headerkey.equals("imageList") || headerkey.equals("OrderRoNo")
+                    || headerkey.equals("LibraryCallNo")|| headerkey.equals("status")){
+
+                }else{
+                    if (headerkey.equals("Remarks")){
+                        threeData.put("text", asstBean.Remarks)
+                    }else if (headerkey.equals("FoundStatus") || headerkey.equals("scanStatus")){
+                        threeData.put("text", asstBean.scanStatus)
+                    }else if (headerkey.equals("scanTime")){
+                        threeData.put("text", asstBean.scanTime)
                     }
+                    oneArray.put(threeData)
                 }
             }
             oneData.put("list", oneArray)

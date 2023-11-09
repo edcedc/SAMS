@@ -1,90 +1,119 @@
 <resources>
 
+    <string name="app_name" translatable="false">聖公會檔案館</string>
+
     <string name="message_permission_rationale">授予以下權限以繼續該過程：\n\n%1$s</string>
     <string name="message_overlay_failed">您的手機不允許我們使用其他應用程序。 </string>
     <string name="message_permission_always_failed">我們需要以下權限，請在設置中為我們啟用它：\n\n%1$s</string>
-    <string name="setting" translateable="false">設置</string>
-    <string name="resume" translatable="false">重試</string>
-    <string name="cancel" translatable="false">取消</string>
-    <string name="out" translatable="false">退出帳戶</string>
+    <string name="setting">設置</string>
+    <string name="resume">重試</string>
+    <string name="cancel">取消</string>
+    <string name="out">退出帳戶</string>
 
-    <string name="account" translatable="false">帳戶</string>
-    <string name="password" translateable="false" translatable="false">密碼</string>
-    <string name="login" translatable="false">登錄</string>
+    <string name="account">登錄帳戶</string>
+    <string name="password">登錄密碼</string>
+    <string name="login">登錄</string>
 
-    <string name="error_phone" translatable="false">用戶名或密碼不正確</string>
-    <string name="hiht_" translatable="false">請輸入完整</string>
-    <string name="hiht_1" translateable="false">請輸入</string>
+    <string name="error_phone">用戶名或密碼不正確</string>
+    <string name="hiht_">請輸入完整</string>
+    <string name="hiht_1">請輸入</string>
 
-    <string name="e_english" translatable="false">English</string>
-    <string name="t_chinese" translatable="false">繁體中文</string>
-    <string name="s_chinese" translatable="false">简体中文</string>
-    <string name="host" translatable="false">主機</string>
-    <string name="company_id" translatable="false">公司 ID</string>
-    <string name="please_language" translatable="false">請選擇語言</string>
+    <string name="e_english">English</string>
+    <string name="t_chinese">繁體中文</string>
+    <string name="s_chinese">简体中文</string>
+    <string name="host">主機</string>
+    <string name="company_id">公司 ID</string>
+    <string name="please_language">請選擇語言</string>
 
-    <string name="release_success" translateable="false">保存成功</string>
-    <string name="download" translateable="false">同步數據</string>
-    <string name="upload" translateable="false">上傳</string>
+    <string name="release_success">保存成功</string>
+    <string name="download">同步數據</string>
+    <string name="upload">上傳</string>
 
-    <string name="start_date" translateable="false">開始日期</string>
-    <string name="end_date" translateable="false">結束日期</string>
-    <string name="update_date" translateable="false">更新日期</string>
-    <string name="remarks" translateable="false">備註</string>
-    <string name="progress" translateable="false">進度</string>
-    <string name="title" transable="false">標題</string>
-    <string name="org" translateable="false">組織/公司</string>
-    <string name="phone" translateable="false">電話</string>
-    <string name="location" translateable="false">位置</string>
+    <string name="start_date">開始日期</string>
+    <string name="end_date">結束日期</string>
+    <string name="update_date">更新日期</string>
+    <string name="remarks">備註</string>
+    <string name="progress">進度</string>
+    <string name="title">標題</string>
+    <string name="org">機構/公司</string>
+    <string name="phone">電話</string>
+    <string name="location">地點</string>
 
-    <string name="stock_take" translateable="false">庫存盤點</string>
-    <string name="system" translateable="false">系統</string>
-    <string name="our_login" translateable="false">退出賬號</string>
-    <string name="full_list" translateable="false">全部</string>
-    <string name="found" translateable="false">在庫</string>
-    <string name="missing" translateable="false">缺失</string>
-    <string name="abnormal" transable="false">異常</string>
-    <string name="start" translateable="false">開始</string>
-    <string name="stop" translateable="false">停止</string>
-    <string name="save" translateable="false">保存</string>
+    <string name="stock_take">庫存盤點</string>
+    <string name="system">系統</string>
+    <string name="full_list">全部</string>
+    <string name="found">在庫</string>
+    <string name="missing">缺失</string>
+    <string name="abnormal">異常</string>
+    <string name="start">開始</string>
+    <string name="stop">停止</string>
+    <string name="save">保存</string>
 
-    <string name="download1" translateable="false">正在下載數據，請保持網絡連接，不要退出應用</string>
+    <string name="download1">正在下載數據，請保持網絡連接，不要退出應用</string>
 
-    <string name="search_assets" translateable="false">搜索 Rfid</string>
-    <string name="detailed" translateable="false">詳細信息</string>
-    <string name="asset_no" translateable="false">資產編號</string>
-    <string name="inventory_status" translateable="false">庫存狀態</string>
-    <string name="label_tag" translateable="false">EPC</string>
-    <string name="order_no" translateable="false">訂單號</string>
-    <string name="companyid" translateable="false">公司 ID</string>
-    <string name="type" translateable="false">類型</string>
-    <string name="status" translateable="false">狀態</string>
-    <string name="upload_image" translateable="false">圖片</string>
-    <string name="no_labelTag" translateable="false">沒有 LabelTag</string>
+    <string name="search_assets">搜索 Rfid</string>
+    <string name="detailed">詳細信息</string>
+    <string name="asset_no">資產編號</string>
+    <string name="inventory_status">庫存狀態</string>
+    <string name="label_tag">EPC</string>
+    <string name="order_no">訂單號</string>
+    <string name="companyid">公司</string>
+    <string name="type">類型</string>
+    <string name="status">狀態</string>
+    <string name="upload_image">圖片</string>
+    <string name="no_labelTag">沒有 LabelTag</string>
 
-    <string name="borrow" translateable="false">借出</string>
-    <string name="borrow_date" translateable="false">借出日期</string>
-    <string name="telephone" translateable="false">電話</string>
-    <string name="external_borrow" translateable="false">外部借出</string>
-    <string name="internal_borrow" translateable="false">內部借出</string>
-    <string name="disposal" translateable="false">注銷</string>
-    <string name="book" transable="false">書籍/出版物</string>
-    <string name="archives" translateable="false">檔案</string>
-    <string name="qRCode" translateable="false">QRCode</string>
-    <string name="submit" translateable="false">提交</string>
+    <string name="borrow">借出</string>
+    <string name="borrow_date">借出日期</string>
+    <string name="telephone">電話</string>
+    <string name="external_borrow">外部借閱</string>
+    <string name="internal_borrow">內部借閱</string>
+    <string name="disposal">注銷</string>
+    <string name="book">書籍/刊物</string>
+    <string name="archives">檔案</string>
+    <string name="qRCode">QRCode</string>
+    <string name="submit">提交</string>
 
-    <string name="no_found1" translateable="false">是否確認所有上傳。 </string>
-    <string name="text1" translateable="false">正在保存，請稍候</string>
-    <string name="text2" translateable="false">點擊上傳</string>
-    <string name="text3" translatable="false">上傳完成</string>
-    <string name="text4" translatable="false">成功</string>
-    <string name="text5" translatable="false">目前沒有找到對應的標籤</string>
-    <string name="text6" translatable="false">沒有列表</string>
-    <string name="text7" translatable="false">請輸入備註</string>
-    <string name="text8" translatable="false">上傳成功</string>
-    <string name="text9" translatable="false">失敗</string>
+    <string name="no_found1">是否確認所有上傳。 </string>
+    <string name="text1">正在保存，請稍候</string>
+    <string name="text2">點擊上傳</string>
+    <string name="text3">上傳完成</string>
+    <string name="text4">成功</string>
+    <string name="text5">目前沒有找到對應的標籤</string>
+    <string name="text6">沒有列表</string>
+    <string name="text7">請輸入備註</string>
+    <string name="text8">上傳成功</string>
+    <string name="text9">失敗</string>
 
-    <string name="level" translateable="false">Level</string>
+    <string name="level">等級</string>
+    <string name="loading">加载...</string>
+
+    <string name="scan_status">掃描狀態</string>
+    <string name="found_status">辨識狀態</string>
+    <string name="QRCode">二維碼掃描</string>
+    <string name="manually">手動修改</string>
+    <string name="scan_date">掃描時間</string>
+    <string name="scan_user">掃描用户</string>
+    <string name="label_tag1">標籤</string>
+    <string name="scan_time">掃描時間</string>
+    <string name="language">語言</string>
+    <string name="archives_type">檔案種類</string>
+    <string name="disposal_model">註銷模式</string>
+    <string name="level_type">層次類型</string>
+    <string name="archives_no">檔案號</string>
+
+
+    <string name="login_title1">歡迎你登入</string>
+    <string name="login_title">香港聖公會檔案管理系統</string>
+    <string name="borrower_user">借閱人</string>
+    <string name="author">作者</string>
+    <string name="library_call_no">索書號</string>
+    <string name="editions_year">年份</string>
+    <string name="borrowing_status">借閱狀態</string>
+    <string name="borrowing0">預約中</string>
+    <string name="borrowing1">借閱中</string>
+    <string name="record_group">組別編碼</string>
+
 
 
 </resources>
