@@ -94,7 +94,7 @@ class AssetInStockFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
         })
         //识别 / 更新 RFID
         assetModel.epcUploadData.observe(viewLifecycleOwner, {
-            if (it == null || it.InventoryStatus == INVENTORY_FAIL)return@observe
+            if (it == null || it.InventoryStatus != INVENTORY_STOCK)return@observe
             adapter.data.filterIndexed { index, bean ->
                 val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.LabelTag)) || bean.AssetNo.equals(it.AssetNo)
                 if (shouldBeIncluded) {

@@ -25,6 +25,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:onClick="@{()->click.status()}"
                 android:padding="10dp"
                 android:background="@color/white_f4f4f4"
                 android:layout_width="match_parent"
@@ -39,7 +40,6 @@
                     style="@style/Tv15black" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:onClick="@{()->click.status()}"
                     android:text="@={viewmodel.status}"
                     android:textColor="@color/red_ff0000"
                     style="@style/Tv15black" />

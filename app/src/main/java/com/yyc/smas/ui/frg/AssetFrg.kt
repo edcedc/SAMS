@@ -29,6 +29,7 @@ import com.yyc.smas.ext.bindViewPager2
 import com.yyc.smas.ext.init
 import com.yyc.smas.ext.initClose
 import com.yyc.smas.ext.loadServiceInit
+import com.yyc.smas.ext.showLoading
 import com.yyc.smas.ext.showToast
 import com.yyc.smas.mar.eventViewModel
 import com.yyc.smas.util.CacheUtil

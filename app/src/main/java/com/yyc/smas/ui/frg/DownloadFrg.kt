@@ -120,17 +120,23 @@ class DownloadFrg : BaseFragment<DownloadModel, FDownloadBinding>() {
 
                     compositeDisposable = Observable.interval(1, TimeUnit.SECONDS)
                         .observeOn(Schedulers.io()) // 切换到IO线程执行操作
-                        .subscribe { tick ->
-                            var result = numberFormat.format(number.toFloat() / it.pageSize.toFloat() * 100).toFloat()
-//                            mDatabind.progressView.progress = result
-
+                        .map { tick ->
+                            number.toFloat() / it.pageSize.toFloat() * 100 // 执行计算操作，这里可能有异常
+                        }
+                        .onErrorReturn { e ->
+                            // 处理发生异常的情况，返回一个默认值作为结果
+                            LogUtils.e("Observable", "Error occurred: ${e.message}")
+                            0f // 返回一个默认值，表示操作失败
+                        }
+                        .subscribe { result ->
+                            // 在这里处理正常的操作逻辑
                             mDatabind.circularProgressBar.progress = result
                             runOnUiThread {
                                 mDatabind.circularProgressBar.setProgressWithAnimation(result, 1000)
                             }
                             LogUtils.i(number, result)
 
-                            if (number >= it.pageSize){
+                            if (number >= it.pageSize) {
                                 compositeDisposable?.dispose()
                                 runOnUiThread {
                                     Handler().postDelayed({
