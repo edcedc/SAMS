@@ -86,7 +86,7 @@ open class  AssetModel : BaseViewModel() {
             val list = JSONArray()
             val oneArray = JSONArray()
             val oneData = JSONObject()
-            oneData.put("title", asstBean.AssetNo)
+            oneData.put("title", appContext.resources.getString(R.string.detailed))
             val headerkeys: Iterator<String> = bean.keys()
             while (headerkeys.hasNext()) {
                 val headerkey = headerkeys.next()
