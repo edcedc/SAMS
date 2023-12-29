@@ -7,7 +7,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.core.LoadService
@@ -36,16 +35,13 @@ import org.json.JSONObject
 /**
  * @Author nike
  * @Date 2023/9/8 10:57
- * @Description 图书
+ * @Description 外部-图书
  */
 class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>() {
 
     private val externalModel: ExternalModel by activityViewModels()
 
-    val adapter: DisposalListAdapter by lazy { DisposalListAdapter(
-        arrayListOf(),
-        EXTERNAL_ARCHIVES_TYPE
-    ) }
+    val adapter: DisposalListAdapter by lazy { DisposalListAdapter(arrayListOf(), EXTERNAL_ARCHIVES_TYPE) }
 
     var orderId: String? = null
 
@@ -69,11 +65,11 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
             it.addItemDecoration(SpaceItemDecoration(ConvertUtils.dp2px(10f), ConvertUtils.dp2px(10f), true))
         }
         adapter.run {
-            setNbOnItemClickListener{adapter, view, position ->
+            setNbOnItemClickListener { adapter, view, position ->
                 val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
-                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo, EXTERNAL_ARCHIVES_TYPE)
             }
         }
 
@@ -100,6 +96,7 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
                 super.onResume(owner)
                 isVisibility = true
             }
+
         })
     }
 
@@ -123,7 +120,7 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
                 val split = it.text?.split(",")
                 split?.forEach {it
                     adapter.data.filterIndexed { index, bean ->
-                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it, ignoreCase = true)) || bean.AssetNo.equals(it, ignoreCase = true)
                         // 将满足条件的索引添加到 indexList
                         if (shouldBeIncluded) {
                             indexList.add(index)
@@ -141,6 +138,7 @@ class ExternalArchivesFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>
                     bean.type = if (bean.type == 1) 0 else 1
                     adapter.setData(i, bean)
                 }
+
                 if (!StringUtils.isEmpty(searchText)){
                     adapter!!.filter.filter(searchText)
                 }

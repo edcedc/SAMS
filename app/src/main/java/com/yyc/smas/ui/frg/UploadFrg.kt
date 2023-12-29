@@ -22,6 +22,7 @@ import com.yyc.smas.ext.showEmpty
 import com.yyc.smas.ext.showLoading
 import com.yyc.smas.viewmodel.UploadModel
 import com.yyc.smas.weight.recyclerview.SpaceItemDecoration
+import me.hgj.jetpackmvvm.base.appContext
 import me.hgj.jetpackmvvm.ext.nav
 import me.hgj.jetpackmvvm.ext.navigateAction
 
@@ -76,7 +77,7 @@ class UploadFrg: BaseFragment<UploadModel,BTitleRecyclerBinding>(){
         })
         mViewModel.isShowDialog.observe(viewLifecycleOwner, {
             if (it){
-                showLoading()
+                showLoading(appContext.getString(R.string.loading))
             }else{
                 dismissLoading()
             }

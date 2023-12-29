@@ -13,7 +13,15 @@ import com.yyc.smas.bean.RfidStateBean
 import com.yyc.smas.bean.db.AssetBean
 import com.yyc.smas.bean.db.UploadOrderBean
 import com.yyc.smas.bean.db.UploadOrderListBean
+import com.yyc.smas.ext.DISPOSAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.DISPOSAL_BOOK_TYPE
+import com.yyc.smas.ext.EXTERNAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.EXTERNAL_BOOK_TYPE
+import com.yyc.smas.ext.INTERNAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.INTERNAL_BOOK_TYPE
 import com.yyc.smas.ext.INVENTORY_FAIL
+import com.yyc.smas.ext.RFID_ARCHIVES
+import com.yyc.smas.ext.RFID_BOOK
 import com.yyc.smas.ext.UPLOAD_IMAGE_SPLIT
 import com.yyc.smas.ext.showLoadingExt
 import com.yyc.smas.ui.frg.AssetFrg
@@ -82,6 +90,7 @@ open class  AssetModel : BaseViewModel() {
     fun onRequestText(bean: String?) {
         var asstBean = Gson().fromJson(bean, AssetBean::class.java)
         val bean = JSONObject(bean)
+        LogUtils.e(bean)
         Flowable.fromCallable {
             val list = JSONArray()
             val oneArray = JSONArray()
@@ -112,6 +121,9 @@ open class  AssetModel : BaseViewModel() {
                     }
                     oneArray.put(threeData)
                 }
+
+
+
             }
             oneData.put("list", oneArray)
             list.put(oneData)
@@ -197,6 +209,123 @@ open class  AssetModel : BaseViewModel() {
                 ToastUtils.showShort(appContext.getText(R.string.release_success))
             }
         }
+    }
+
+    fun onRequestText1(bean: String?) {
+        val jo = JSONObject(bean)
+        val ja = JSONArray()
+        val headerkeys: Iterator<String> = jo.keys()
+        while (headerkeys.hasNext()) {
+            val headerkey = headerkeys.next()
+            val headerValue: String = jo.getString(headerkey)
+            var threeData = JSONObject()
+            threeData.put("title", headerkey)
+            threeData.put("text", headerValue)
+            ja.put(threeData)
+        }
+
+        val jsonArray = JSONArray()
+        val jsonObject = JSONObject()
+
+        var newJa = JSONArray()
+        when(jo.optInt("status")){
+            RFID_BOOK ->{
+                val keysOrder = listOf(
+                    "AssetNo",
+                    "LibraryCallNo",
+                    "Type",
+                    "Title",
+                    "Author",
+                    "Editions_Year",
+                    "Location",
+                    "BorrowStatus",
+                    "StatusId",
+                    "Language",
+                    "LabelTag",
+                    "InventoryStatus",
+                    "scanStatus",
+                    "scanTime",
+                    "Remarks",
+                    "Img"
+                )
+
+                val keyObjectMap = LinkedHashMap<String, JSONObject>()
+
+                for (i in 0 until ja.length()) {
+                    val jsonObject = ja.optJSONObject(i)
+                    val jo = jsonObject.optString("title")
+                    val text = jsonObject.optString("text")
+
+                    if (jo in keysOrder) {
+                        var obj = keyObjectMap[jo]
+                        if (obj == null) {
+                            obj = JSONObject()
+                            obj.put("title", jo)
+                            keyObjectMap[jo] = obj
+                        }
+                        obj.put("text", text)
+                    }
+                }
+
+                for (key in keysOrder) {
+                    val obj = keyObjectMap[key]
+                    if (obj != null) {
+                        newJa.put(obj)
+                    }
+                }
+            }
+            RFID_ARCHIVES ->{
+                val keysOrder = listOf(
+                    "AssetNo",
+                    "ArchivesNo",
+                    "LevelType",
+                    "Type",
+                    "Title",
+                    "BishopName",
+                    "Location",
+                    "BorrowStatus",
+                    "StatusId",
+                    "LabelTag",
+                    "InventoryStatus",
+                    "scanStatus",
+                    "scanTime",
+                    "Remarks",
+                )
+
+                val keyObjectMap = LinkedHashMap<String, JSONObject>()
+
+                for (i in 0 until ja.length()) {
+                    val jsonObject = ja.optJSONObject(i)
+                    val jo = jsonObject.optString("title")
+                    val text = jsonObject.optString("text")
+
+                    if (jo in keysOrder) {
+                        var obj = keyObjectMap[jo]
+                        if (obj == null) {
+                            obj = JSONObject()
+                            obj.put("title", jo)
+                            keyObjectMap[jo] = obj
+                        }
+                        obj.put("text", text)
+                    }
+                }
+
+                for (key in keysOrder) {
+                    val obj = keyObjectMap[key]
+                    if (obj != null) {
+                        newJa.put(obj)
+                    }
+                }
+            }
+            else ->{
+                newJa.put(ja)
+            }
+        }
+
+        jsonObject.put("title", "备用")
+        jsonObject.put("list", newJa)
+        jsonArray.put(jsonObject)
+        listJsonArray.value = jsonArray
     }
 
 }

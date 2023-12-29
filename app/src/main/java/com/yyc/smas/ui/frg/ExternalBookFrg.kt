@@ -7,7 +7,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.core.LoadService
@@ -36,7 +35,7 @@ import org.json.JSONObject
 /**
  * @Author nike
  * @Date 2023/9/8 10:57
- * @Description 图书
+ * @Description 外部-图书
  */
 class ExternalBookFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>() {
 
@@ -70,7 +69,7 @@ class ExternalBookFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>() {
                 val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
-                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo, EXTERNAL_BOOK_TYPE)
             }
         }
 
@@ -121,7 +120,7 @@ class ExternalBookFrg: BaseFragment<ExternalModel, BNotTitleRecyclerBinding>() {
                 val split = it.text?.split(",")
                 split?.forEach {it
                     adapter.data.filterIndexed { index, bean ->
-                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it, ignoreCase = true)) || bean.AssetNo.equals(it, ignoreCase = true)
                         // 将满足条件的索引添加到 indexList
                         if (shouldBeIncluded) {
                             indexList.add(index)

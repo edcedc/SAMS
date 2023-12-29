@@ -143,10 +143,16 @@ class UIHelper private constructor() {
         /**
          *  注销订单详情
          */
-        fun startDisposalDetailsFrg(nav: NavController, bean: DataBean, title: String?) {
+        fun startDisposalDetailsFrg(
+            nav: NavController,
+            bean: DataBean,
+            title: String?,
+            type: Int
+        ) {
             val bundle = Bundle()
             bundle.putString("bean", Gson().toJson(bean))
             bundle.putString("title", title)
+            bundle.putInt("type", type)
             nav.navigate(R.id.disposalDetailsFrg, bundle, navOptions)
         }
 

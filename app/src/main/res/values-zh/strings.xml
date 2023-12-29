@@ -2,7 +2,6 @@
 
     <string name="app_name" translatable="false">圣公会档案馆</string>
 
-
     <string name="message_permission_rationale">授予以下权限以继续该过程：\n\n%1$s</string>
     <string name="message_overlay_failed">您的手机不允许我们使用其他应用程序。</string>
     <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们启用它：\n\n%1$s</string>
@@ -10,26 +9,21 @@
     <string name="resume">重试</string>
     <string name="cancel">取消</string>
     <string name="out">退出帐户</string>
-
+    <string name="no_data" translatable="false">暂时没有数据</string>
+    <string name="click_again" translatable="false">点击我重试</string>
     <string name="account">登录账号</string>
     <string name="password">登录密码</string>
     <string name="login">登录</string>
-
     <string name="error_phone">用户名或密码不正确</string>
     <string name="hiht_">请输入完整</string>
     <string name="hiht_1">请输入</string>
 
-    <string name="e_english">English</string>
-    <string name="t_chinese">繁體中文</string>
-    <string name="s_chinese">简体中文</string>
     <string name="host">主机</string>
     <string name="company_id">公司 ID</string>
     <string name="please_language">请选择语言</string>
-
     <string name="release_success">保存成功</string>
     <string name="download">同步数据</string>
     <string name="upload">上传</string>
-
     <string name="start_date">开始日期</string>
     <string name="end_date">结束日期</string>
     <string name="update_date">更新日期</string>
@@ -39,7 +33,6 @@
     <string name="org">机构/公司</string>
     <string name="phone">电话</string>
     <string name="location">地点</string>
-
     <string name="stock_take">库存盘点</string>
     <string name="system">系统</string>
     <string name="full_list">全部</string>
@@ -49,9 +42,7 @@
     <string name="start">开始</string>
     <string name="stop">停止</string>
     <string name="save">保存</string>
-
     <string name="download1">正在下载数据，请保持网络连接，不要退出应用</string>
-
     <string name="search_assets">搜索 Rfid</string>
     <string name="detailed">详细信息</string>
     <string name="asset_no">资产编号</string>
@@ -63,7 +54,6 @@
     <string name="status">状态</string>
     <string name="upload_image">图片</string>
     <string name="no_labelTag">没有 LabelTag</string>
-
     <string name="borrow">借出</string>
     <string name="borrow_date">借出日期</string>
     <string name="telephone">电话</string>
@@ -74,7 +64,6 @@
     <string name="archives">档案</string>
     <string name="qRCode">QRCode</string>
     <string name="submit">提交</string>
-
     <string name="no_found1">是否确认所有上传。</string>
     <string name="text1">正在保存，请稍候</string>
     <string name="text2">点击上传</string>
@@ -85,10 +74,8 @@
     <string name="text7">请输入备注</string>
     <string name="text8">上传成功</string>
     <string name="text9">失败</string>
-
     <string name="level">等级</string>
-    <string name="loading">加载...</string>
-
+    <string name="loading">上传中...</string>
     <string name="scan_status">扫描状态</string>
     <string name="found_status">识别状态</string>
     <string name="QRCode">二维码扫描</string>
@@ -100,19 +87,78 @@
     <string name="language">语言</string>
     <string name="archives_type">档案种类</string>
     <string name="disposal_model">注销模式</string>
-    <string name="level_type">层次类型</string>
+    <string name="level_type">层级</string>
     <string name="archives_no">档案号</string>
-
     <string name="login_title1">欢迎你登入</string>
     <string name="login_title">香港圣公会档案管理系统</string>
     <string name="borrower_user">借阅人</string>
     <string name="author">作者</string>
     <string name="library_call_no">索书号</string>
-    <string name="editions_year">年份</string>
-    <string name="borrowing_status">借阅状态</string>
-    <string name="borrowing0">预约中</string>
-    <string name="borrowing1">借阅中</string>
+    <string name="editions_year">版次</string>
+    <string name="borrowing_status">借阅权限</string>
     <string name="record_group">组别编码</string>
-
+    <string name="system_no">系统编号</string>
+    <string name="status_1">未绑定</string>
+    <string name="status_2">架上</string>
+    <string name="status_3">借阅中</string>
+    <string name="status_4">预约中</string>
+    <string name="status_5">删除</string>
+    <string name="status_6">修复中</string>
+    <string name="status_7">注销</string>
+    <string name="status_8">注销中</string>
+    <string name="status_9">异常</string>
+    <string name="status_10">丢失</string>
+    <string name="status_20">仅供内部使用</string>
+    <string name="status_21">公开</string>
+    <string name="status_22">未能使用</string>
+    <string name="status_23">转移中</string>
+    <string name="status_24">修复中</string>
+    <string name="status_100">抽样</string>
+    <string name="status_101">全盘点</string>
+    <string name="status_102">已盘点</string>
+    <string name="status_103">未盘点</string>
+    <string name="status_104">盘点中</string>
+    <string name="status_105">盘点完成</string>
+    <string name="status_106">过期</string>
+    <string name="status_107">预备中</string>
+    <string name="status_110">在库</string>
+    <string name="status_111">不在库</string>
+    <string name="status_112">异常</string>
+    <string name="status_116">Scan</string>
+    <string name="status_117">QRCode</string>
+    <string name="status_118">Manually</string>
+    <string name="status_200">禁用</string>
+    <string name="status_201">启用</string>
+    <string name="status_202">删除</string>
+    <string name="status_210">已使用</string>
+    <string name="status_211">可使用</string>
+    <string name="status_212">损坏</string>
+    <string name="status_220">使用中 (内部使用)</string>
+    <string name="status_225">预约申请 (公众人士)</string>
+    <string name="status_226">使用中 (公众人士)</string>
+    <string name="status_227">逾期 (公众人士)</string>
+    <string name="status_230">正常</string>
+    <string name="status_231">逾期 (借阅归还)</string>
+    <string name="status_232">归还</string>
+    <string name="status_240">已申请</string>
+    <string name="status_241">处理中</string>
+    <string name="status_242">已完成</string>
+    <string name="status_250">初始状态（未审核）</string>
+    <string name="status_251">通过</string>
+    <string name="status_252">拒绝</string>
+    <string name="status_260">档案登记通知</string>
+    <string name="status_261">档案预约通知</string>
+    <string name="status_262">档案借出通知</string>
+    <string name="status_263">档案归还通知</string>
+    <string name="status_264">档案注销通知</string>
+    <string name="status_265">档案盘点通知</string>
+    <string name="status_266">档案删除通知</string>
+    <string name="status_300">暂无数据</string>
+    <string name="status_301">档案借出</string>
+    <string name="status_302">持有</string>
+    <string name="status_303">转移中</string>
+    <string name="status_304">终止</string>
+    <string name="bishop_name">主教</string>
+    <string name="images">图片</string>
 
 </resources>

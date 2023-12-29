@@ -18,6 +18,7 @@ import com.yyc.smas.base.BaseFragment
 import com.yyc.smas.bean.DataBean
 import com.yyc.smas.databinding.BNotTitleRecyclerBinding
 import com.yyc.smas.ext.DISPOSAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.EXTERNAL_BOOK_TYPE
 import com.yyc.smas.ext.RFID_ARCHIVES
 import com.yyc.smas.ext.init
 import com.yyc.smas.ext.loadListData
@@ -70,7 +71,7 @@ class DisposalArchivesFrg: BaseFragment<DisposalModel, BNotTitleRecyclerBinding>
                 val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
-                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo, DISPOSAL_ARCHIVES_TYPE)
             }
         }
 
@@ -120,7 +121,7 @@ class DisposalArchivesFrg: BaseFragment<DisposalModel, BNotTitleRecyclerBinding>
                 val split = it.text?.split(",")
                 split?.forEach {it
                     adapter.data.filterIndexed { index, bean ->
-                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it, ignoreCase = true)) || bean.AssetNo.equals(it, ignoreCase = true)
                         // 将满足条件的索引添加到 indexList
                         if (shouldBeIncluded) {
                             indexList.add(index)

@@ -68,7 +68,7 @@ interface AssetDao {
     @Query("SELECT * FROM AssetBean WHERE asset_labelTag COLLATE NOCASE = :LabelTag AND asset_orderNo = :orderId AND asset_roNo = :userId AND asset_companyId = :companyId AND asset_inventoryStatus != 3")
     fun findLabelTagId(LabelTag: String?, orderId: String?, userId: String?, companyId: String?): AssetBean
 
-    @Query("SELECT * FROM AssetBean WHERE asset_labelTag =:LabelTag AND asset_orderNo = :orderId AND asset_roNo = :userId AND asset_companyId = :companyId AND asset_inventoryStatus = 3")
+    @Query("SELECT * FROM AssetBean WHERE asset_labelTag COLLATE NOCASE =:LabelTag AND asset_orderNo = :orderId AND asset_roNo = :userId AND asset_companyId = :companyId AND asset_inventoryStatus = 3")
     fun findFailLabelTagId(LabelTag: String?, orderId: String?, userId: String?, companyId: String?): AssetBean
 
     /**

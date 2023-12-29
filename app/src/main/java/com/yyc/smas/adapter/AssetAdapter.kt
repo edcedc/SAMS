@@ -26,35 +26,19 @@ class AssetAdapter (data: ArrayList<AssetBean>) :BaseQuickAdapter<AssetBean, Bas
     }
 
     override fun convert(viewHolder: BaseViewHolder, bean: AssetBean) {
-        //赋值
-        bean.run {
-            val bean = mFilterList[viewHolder.layoutPosition]
-            viewHolder.setText(R.id.tv_text, bean.AssetNo + " | " + if (bean.type == RFID_BOOK) bean.LibraryCallNo else bean.ArchivesNo)
-            viewHolder.setText(R.id.tv_title1, bean.Title)
-            viewHolder.setText(R.id.tv_location, context.getText(R.string.label_tag))
-            viewHolder.setText(R.id.tv_location1, bean.LabelTag)
-            viewHolder.setText(R.id.tv_epc1, if (StringUtils.isEmpty(bean.LabelTag)) "" else bean.LabelTag)
-
-            viewHolder.setGone(R.id.tv_type, true)
-            viewHolder.setGone(R.id.tv_fen3, true)
-            viewHolder.setGone(R.id.tv_type1, true)
-
-            if (bean.InventoryStatus != INVENTORY_FAIL){
-                viewHolder.setGone(R.id.iv_image, false)
-                viewHolder.setGone(R.id.tv_text, false)
-                viewHolder.setGone(R.id.tv_title, false)
-                viewHolder.setGone(R.id.tv_title1, false)
-                viewHolder.setGone(R.id.tv_location, false)
-                viewHolder.setGone(R.id.tv_location1, false)
-                viewHolder.setImageResource(R.id.iv_image, if (bean.InventoryStatus == INVENTORY_STOCK) R.mipmap.icon_30 else R.mipmap.icon_31)
-            }else{
-                viewHolder.setGone(R.id.iv_image, true)
-                viewHolder.setGone(R.id.tv_text, true)
-                viewHolder.setGone(R.id.tv_title, true)
-                viewHolder.setGone(R.id.tv_title1, true)
-                viewHolder.setGone(R.id.tv_location, true)
-                viewHolder.setGone(R.id.tv_location1, true)
-            }
+        val bean = mFilterList[viewHolder.layoutPosition]
+        viewHolder.setText(R.id.tv_text, bean.AssetNo + " | " + if (bean.status == RFID_BOOK) bean.LibraryCallNo else bean.ArchivesNo)
+        viewHolder.setText(R.id.tv_title, bean.Title)
+        viewHolder.setText(R.id.tv_epc, if (StringUtils.isEmpty(bean.LabelTag)) "" else bean.LabelTag)
+        if (bean.InventoryStatus != INVENTORY_FAIL){
+            viewHolder.setGone(R.id.ly_title, false)
+            viewHolder.setGone(R.id.tv_text, false)
+            viewHolder.setGone(R.id.iv_image, false)
+            viewHolder.setImageResource(R.id.iv_image, if (bean.InventoryStatus == INVENTORY_STOCK) R.mipmap.icon_30 else R.mipmap.icon_31)
+        }else{
+            viewHolder.setGone(R.id.tv_text, true)
+            viewHolder.setGone(R.id.ly_title, true)
+            viewHolder.setGone(R.id.iv_image, true)
         }
     }
 
@@ -80,7 +64,11 @@ class AssetAdapter (data: ArrayList<AssetBean>) :BaseQuickAdapter<AssetBean, Bas
                         val bean = data[i]
                         val assetNo = bean.AssetNo
                         val labelTag = bean.LabelTag
-                        if (assetNo.contains(charString) || labelTag.contains(charString)) {
+                        val title = bean.Title
+                        if (assetNo?.contains(charString, ignoreCase = true) == true
+                            || title?.contains(charString, ignoreCase = true) == true
+                            || labelTag?.contains(charString, ignoreCase = true) == true
+                        ) {
                             filteredList.add(bean)
                         }
                     }
@@ -95,10 +83,21 @@ class AssetAdapter (data: ArrayList<AssetBean>) :BaseQuickAdapter<AssetBean, Bas
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 mFilterList = filterResults.values as ArrayList<AssetBean>
                 notifyDataSetChanged()
+                // 调用搜索回调方法，传递过滤后的数据
+                searchCallback?.onSearchResults(mFilterList)
             }
         }
     }
 
+    interface SearchCallback {
+        fun onSearchResults(filteredData: ArrayList<AssetBean>)
+    }
+
+    private var searchCallback: SearchCallback? = null
+
+    fun setSearchCallback(callback: SearchCallback) {
+        searchCallback = callback
+    }
 
     override fun getItemCount(): Int {
         return mFilterList.size
@@ -107,9 +106,4 @@ class AssetAdapter (data: ArrayList<AssetBean>) :BaseQuickAdapter<AssetBean, Bas
     override fun hashCode(): Int {
         return mFilterList.hashCode()
     }
-
-    private fun  getFilterList(): List<AssetBean>{
-        return mFilterList
-    }
-
 }

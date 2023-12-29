@@ -139,7 +139,7 @@
 
     <fragment
         android:id="@+id/disposalDetailsFrg"
-        android:name="com.yyc.smas.ui.frg.DisposalDetailsFrg"
+        android:name="com.yyc.smas.ui.frg.DetailsFrg"
         android:label="DisposalFrg" />
 
     <fragment

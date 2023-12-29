@@ -87,7 +87,7 @@ object CacheUtil {
         val kv = MMKV.mmkvWithID("app")
         val s = kv.decodeString("Language")
         if (StringUtils.isEmpty(s)){
-            return "简体中文"
+            return "繁體中文"
         }else{
             return s!!
         }

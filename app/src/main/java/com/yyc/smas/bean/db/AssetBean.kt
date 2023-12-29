@@ -54,9 +54,6 @@ open class AssetBean {
     @ColumnInfo(name = "asset_inventoryStatus")
     var InventoryStatus: Int = 0
 
-    @ColumnInfo(name = "asset_type")
-    var type: Int = 0
-
     @ColumnInfo(name = "asset_status")
     var status: Int = 0
 
@@ -72,8 +69,38 @@ open class AssetBean {
     @ColumnInfo(name = "asset_companyId")
     var companyId: String = ""
 
+    @ColumnInfo(name = "asset_Type")
+    var Type: String = ""
+
+    @ColumnInfo(name = "asset_Author")
+    var Author: String = ""
+
+    @ColumnInfo(name = "asset_Editions_Year")
+    var Editions_Year: String = ""
+
+    @ColumnInfo(name = "asset_BorrowStatus")
+    var BorrowStatus: Int = 0
+
+    @ColumnInfo(name = "asset_StatusKey")
+    var StatusKey: String = ""
+
+    @ColumnInfo(name = "asset_Img")
+    var Img: String = ""
+
+    @ColumnInfo(name = "asset_LevelType")
+    var LevelType: String = ""
+
+    @ColumnInfo(name = "asset_BishopName")
+    var BishopName: String = ""
+
+    @ColumnInfo(name = "asset_ArchivesYear")
+    var ArchivesYear: String = ""
+
+    @ColumnInfo(name = "asset_StatusID")
+    var StatusId: String = ""
+
     override fun toString(): String {
-        return "AssetBean(uid=$uid, ids='$ids', OrderRoNo='$OrderRoNo', AssetNo='$AssetNo', LibraryCallNo='$LibraryCallNo', ArchivesNo='$ArchivesNo', Remarks='$Remarks', LabelTag='$LabelTag', Title='$Title', Language='$Language', imageList='$imageList', Location='$Location', FoundStatus=$FoundStatus, InventoryStatus=$InventoryStatus, type=$type, status=$status, RoNo='$RoNo', scanTime='$scanTime', scanStatus=$scanStatus, companyId='$companyId')"
+        return "AssetBean(uid=$uid, ids='$ids', OrderRoNo='$OrderRoNo', AssetNo='$AssetNo', LibraryCallNo='$LibraryCallNo', ArchivesNo='$ArchivesNo', Remarks='$Remarks', LabelTag='$LabelTag', Title='$Title', Language='$Language', imageList='$imageList', Location='$Location', FoundStatus=$FoundStatus, InventoryStatus=$InventoryStatus, status=$status, RoNo='$RoNo', scanTime='$scanTime', scanStatus=$scanStatus, companyId='$companyId', Type='$Type', Author='$Author', Editions_Year='$Editions_Year', BorrowStatus=$BorrowStatus, StatusKey='$StatusKey', Img='$Img', LevelType='$LevelType', BishopName='$BishopName', ArchivesYear='$ArchivesYear', StatusID='$StatusId')"
     }
 
 }

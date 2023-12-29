@@ -139,9 +139,7 @@ class DownloadFrg : BaseFragment<DownloadModel, FDownloadBinding>() {
                             if (number >= it.pageSize) {
                                 compositeDisposable?.dispose()
                                 runOnUiThread {
-                                    Handler().postDelayed({
-                                        mDatabind.tvText.text = "Sync Success"
-                                    }, 1200) // 延迟1秒（即1000毫秒）
+                                    mDatabind.tvText.text = "Sync Success"
                                 }
                             }
                         }

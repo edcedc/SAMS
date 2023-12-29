@@ -28,7 +28,7 @@ import me.hgj.jetpackmvvm.ext.nav
 /**
  * @Author nike
  * @Date 2023/8/8 14:46
- * @Description 外部借出
+ * @Description 注销
  */
 class DisposalFrg: BaseFragment<DisposalModel, FDisposalBinding>() {
 

@@ -62,11 +62,12 @@ class DisposalAdapter (data: ArrayList<DataBean>) :
                     val filteredList: MutableList<DataBean> = ArrayList()
                     for (i in data.indices) {
                         val bean = data[i]
-                        val labelTag = bean.OrderNo
-                        if (!StringUtils.isEmpty(labelTag)) {
-                            if (labelTag!!.contains(charString)) {
-                                filteredList.add(bean)
-                            }
+                        val orderNo = bean.OrderNo
+                        val orderName = bean.OrderName
+                        if (orderNo?.contains(charString, ignoreCase = true) == true
+                            || orderName?.contains(charString, ignoreCase = true) == true
+                        ) {
+                            filteredList.add(bean)
                         }
                     }
                     mFilterList = filteredList as ArrayList<DataBean>
@@ -92,9 +93,4 @@ class DisposalAdapter (data: ArrayList<DataBean>) :
     override fun hashCode(): Int {
         return mFilterList.hashCode()
     }
-
-    fun  getFilterList(): List<DataBean>{
-        return mFilterList
-    }
-
 }

@@ -28,26 +28,23 @@ class OrderAdapter (data: ArrayList<OrderBean>) :
     }
 
     override fun convert(viewHolder: BaseViewHolder, bean: OrderBean) {
-        //赋值
-        bean.run {
-            val bean = mFilterList[viewHolder.layoutPosition]
-            viewHolder.setText(R.id.tv_title, bean.OrderNo + " | " + bean.OrderName)
-            var startDate = bean.StartDate
-            if (startDate.contains("00:00:00")){
-                startDate = startDate.substring(0, 10)
-            }
-            viewHolder.setText(R.id.tv_start_date, context.getString(R.string.start_date) + "：" + startDate)
-            var endDate = bean.EndDate
-            if (endDate.contains("00:00:00")){
-                endDate = endDate.substring(0, 10)
-            }
-            viewHolder.setText(R.id.tv_end_date, context.getString(R.string.end_date) + "：" + endDate)
-
-            viewHolder.setText(R.id.tv_progress, context.getString(R.string.progress) + "：" + bean.Number_of_discs + "/" + bean.Total_count)
-//            viewHolder.setText(R.id.tv_update_data, context.getString(R.string.update_date) + "：" + bean.lastUpdate)
-            viewHolder.setText(R.id.tv_remarks, context.getString(R.string.remarks) + "：" + bean.Remarks)
-            viewHolder.getView<AppCompatTextView>(R.id.tv_remarks).visibility = if (StringUtils.isEmpty(bean.Remarks)) View.GONE else View.VISIBLE
+        val bean = mFilterList[viewHolder.layoutPosition]
+        viewHolder.setText(R.id.tv_title, bean.OrderNo + " | " + bean.OrderName)
+        var startDate = bean.StartDate
+        if (startDate.contains("00:00:00")){
+            startDate = startDate.substring(0, 10)
         }
+        viewHolder.setText(R.id.tv_start_date, context.getString(R.string.start_date) + "：" + startDate)
+        var endDate = bean.EndDate
+        if (endDate.contains("00:00:00")){
+            endDate = endDate.substring(0, 10)
+        }
+        viewHolder.setText(R.id.tv_end_date, context.getString(R.string.end_date) + "：" + endDate)
+
+        viewHolder.setText(R.id.tv_progress, context.getString(R.string.progress) + "：" + bean.Number_of_discs + "/" + bean.Total_count)
+//            viewHolder.setText(R.id.tv_update_data, context.getString(R.string.update_date) + "：" + bean.lastUpdate)
+        viewHolder.setText(R.id.tv_remarks, context.getString(R.string.remarks) + "：" + bean.Remarks)
+        viewHolder.getView<AppCompatTextView>(R.id.tv_remarks).visibility = if (StringUtils.isEmpty(bean.Remarks)) View.GONE else View.VISIBLE
     }
 
     var mFilterList = ArrayList<OrderBean>()
@@ -70,11 +67,12 @@ class OrderAdapter (data: ArrayList<OrderBean>) :
                     val filteredList: MutableList<OrderBean> = ArrayList()
                     for (i in data.indices) {
                         val bean = data[i]
-                        val labelTag = bean.OrderNo
-                        if (!StringUtils.isEmpty(labelTag)) {
-                            if (labelTag!!.contains(charString)) {
-                                filteredList.add(bean)
-                            }
+                        val orderNo = bean.OrderNo
+                        val orderName = bean.OrderName
+                        if (orderNo?.contains(charString, ignoreCase = true) == true
+                            || orderName?.contains(charString, ignoreCase = true) == true
+                        ) {
+                            filteredList.add(bean)
                         }
                     }
                     mFilterList = filteredList as ArrayList<OrderBean>
@@ -99,10 +97,6 @@ class OrderAdapter (data: ArrayList<OrderBean>) :
 
     override fun hashCode(): Int {
         return mFilterList.hashCode()
-    }
-
-    fun  getFilterList(): List<OrderBean>{
-        return mFilterList
     }
 
 }

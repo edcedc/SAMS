@@ -37,7 +37,7 @@ class AssetTextFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>() {
         adapter.run {
 
         }
-        mViewModel.onRequestText(bean)
+        mViewModel.onRequestText1(bean)
     }
 
     override fun createObserver() {

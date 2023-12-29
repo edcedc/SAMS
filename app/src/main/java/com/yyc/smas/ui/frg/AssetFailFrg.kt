@@ -60,9 +60,14 @@ class AssetFailFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
         }
         adapter.run {
             setNbOnItemClickListener{adapter, view, position ->
-                val bean = adapter.data[position] as AssetBean
-//                LogUtils.e(bean.LabelTag)
+                val bean = mFilterList[position]
+                LogUtils.e(bean)
             }
+            setSearchCallback(object :AssetAdapter.SearchCallback{
+                override fun onSearchResults(filteredData: ArrayList<AssetBean>) {
+//                    assetModel.assetTitle.value = getString(R.string.abnormal) + "(" + filteredData.size + ")"
+                }
+            })
         }
         mViewModel.onRequest(orderId, INVENTORY_FAIL)
 
@@ -70,7 +75,7 @@ class AssetFailFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
             override fun onResume(owner: LifecycleOwner) {
                 super.onResume(owner)
                 fmIsVisible = true
-                assetModel.assetTitle.value = getString(R.string.abnormal) + "(" + adapter.data.size + ")"
+                assetModel.assetTitle.value = getString(R.string.abnormal) + "(" + adapter.mFilterList.size + ")"
             }
 
             override fun onPause(owner: LifecycleOwner) {

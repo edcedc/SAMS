@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yyc.smas.R
 import com.yyc.smas.bean.DataBean
+import com.yyc.smas.bean.db.AssetBean
 import com.yyc.smas.ext.setAdapterAnimation
 import com.yyc.smas.util.SettingUtil
 
@@ -25,20 +26,17 @@ class ExternalAdapter (data: ArrayList<DataBean>) :
     }
 
     override fun convert(viewHolder: BaseViewHolder, bean: DataBean) {
-        //赋值
-        bean.run {
-            val bean = mFilterList[viewHolder.layoutPosition]
-            viewHolder.setText(R.id.tv_text, bean.OrderNo + " | " + bean.us)
-            bean.Title = viewHolder.getView<AppCompatTextView>(R.id.tv_text).text.toString()
-            viewHolder.setText(R.id.tv_title1, "：" + bean.org)
-            var BorrowDate = bean.BorrowDate
-            if (BorrowDate!!.contains("00:00:00")){
-                BorrowDate = BorrowDate.substring(0, 10)
-            }
-            viewHolder.setText(R.id.tv_location1, "：" + BorrowDate)
-            viewHolder.setText(R.id.tv_epc1, "：" + bean.Phone)
-            viewHolder.setText(R.id.tv_progress1, "：" + bean.Progress)
+        val bean = mFilterList[viewHolder.layoutPosition]
+        viewHolder.setText(R.id.tv_text, bean.OrderNo + " | " + bean.us)
+        bean.Title = viewHolder.getView<AppCompatTextView>(R.id.tv_text).text.toString()
+        viewHolder.setText(R.id.tv_title1, "：" + bean.org)
+        var BorrowDate = bean.BorrowDate
+        if (BorrowDate!!.contains("00:00:00")){
+            BorrowDate = BorrowDate.substring(0, 10)
         }
+        viewHolder.setText(R.id.tv_location1, "：" + BorrowDate)
+        viewHolder.setText(R.id.tv_epc1, "：" + bean.Phone)
+        viewHolder.setText(R.id.tv_progress1, "：" + bean.Progress)
     }
 
     var mFilterList = ArrayList<DataBean>()
@@ -61,11 +59,14 @@ class ExternalAdapter (data: ArrayList<DataBean>) :
                     val filteredList: MutableList<DataBean> = ArrayList()
                     for (i in data.indices) {
                         val bean = data[i]
-                        val labelTag = bean.OrderNo
-                        if (!StringUtils.isEmpty(labelTag)) {
-                            if (labelTag!!.contains(charString)) {
-                                filteredList.add(bean)
-                            }
+                        val orderNo = bean.OrderNo
+                        val us = bean.us
+                        val phone = bean.Phone
+                        if (orderNo?.contains(charString, ignoreCase = true) == true
+                            || us?.contains(charString, ignoreCase = true) == true
+                            || phone?.contains(charString, ignoreCase = true) == true
+                        ) {
+                            filteredList.add(bean)
                         }
                     }
                     mFilterList = filteredList as ArrayList<DataBean>
@@ -83,17 +84,12 @@ class ExternalAdapter (data: ArrayList<DataBean>) :
         }
     }
 
-
     override fun getItemCount(): Int {
         return mFilterList.size
     }
 
     override fun hashCode(): Int {
         return mFilterList.hashCode()
-    }
-
-    fun  getFilterList(): List<DataBean>{
-        return mFilterList
     }
 
 }

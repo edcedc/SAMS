@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
 import com.yyc.smas.R
+import com.yyc.smas.adapter.AssetAdapter
 import com.yyc.smas.adapter.ExternalAdapter
 import com.yyc.smas.api.UIHelper
 import com.yyc.smas.base.BaseFragment
 import com.yyc.smas.bean.DataBean
+import com.yyc.smas.bean.db.AssetBean
 import com.yyc.smas.databinding.FDisposalBinding
 import com.yyc.smas.ext.EXTERNAL_BAORROW_TYPE
 import com.yyc.smas.ext.init

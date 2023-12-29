@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.widget.Toolbar
+import com.blankj.utilcode.util.LanguageUtils
 import com.yyc.smas.R
 import com.yyc.smas.databinding.ASplashBinding
 import com.yyc.smas.weight.permission.RuntimeRationale
@@ -17,6 +18,7 @@ import com.yyc.smas.api.UIHelper
 import com.yyc.smas.base.BaseActivity
 import com.yyc.smas.util.CacheUtil
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import java.util.Locale
 
 /**
  * Created by Android Studio.

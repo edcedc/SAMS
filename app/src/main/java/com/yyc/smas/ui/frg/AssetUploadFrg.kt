@@ -152,7 +152,7 @@ class AssetUploadFrg: BaseFragment<AssetUploadModel, FAssetUploadBinding>(){
             asstBean!!.Remarks = mViewModel.remarks.get()
             //判断时间在不在
             var scanTime = asstBean!!.scanTime
-            if (StringUtils.isEmpty(scanTime)){
+            if (StringUtils.isEmpty(scanTime) || scanTime.equals("null")){
                 asstBean!!.scanTime = TimeUtils.getNowString()
             }
             if (asstBean!!.scanStatus == 0){

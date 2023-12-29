@@ -2,11 +2,15 @@ package com.yyc.smas.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yyc.smas.R
 import com.yyc.smas.bean.DataBean
+import com.yyc.smas.ext.DISPOSAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.DISPOSAL_BOOK_TYPE
+import com.yyc.smas.ext.EXTERNAL_ARCHIVES_TYPE
 import com.yyc.smas.ext.EXTERNAL_BOOK_TYPE
+import com.yyc.smas.ext.INTERNAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.INTERNAL_BOOK_TYPE
 import com.yyc.smas.network.REQUEST_SUCCESS
 import com.yyc.smas.network.apiService
 import com.yyc.smas.network.stateCallback.ListDataUiState
@@ -118,10 +122,10 @@ class DisposalModel: BaseViewModel() {
             loadingChange.dismissDialog
             ToastUtils.showShort(it.throwable!!.message)
             LogUtils.e(it.throwable, it.throwable!!.message)
-        }, true)
+        }, true, appContext.getString(R.string.loading))
     }
 
-    fun onRequestText(title: String?, bean: String?) {
+    fun onRequestText(title: String?, bean: String?, type: Int) {
         val jo = JSONObject(bean)
         val ja = JSONArray()
         val headerkeys: Iterator<String> = jo.keys()
@@ -131,37 +135,101 @@ class DisposalModel: BaseViewModel() {
             var threeData = JSONObject()
             threeData.put("title", headerkey)
             threeData.put("text", headerValue)
-
-            if (headerkey.equals("Location") || headerkey.equals("Time")
-                || headerkey.equals("LibraryCallNo")|| headerkey.equals("LabelTag")
-                || headerkey.equals("Title") || headerkey.equals("Borrowstatus")
-                || headerkey.equals("Author") || headerkey.equals("Editions_Year")
-                || headerkey.equals("Language") || headerkey.equals("Img")
-                || headerkey.equals("ArchivesNo") || headerkey.equals("LevelType")
-                || headerkey.equals("ArchivesYear") || headerkey.equals("ArchivesType")){
-                ja.put(threeData)
-            }
+            ja.put(threeData)
         }
 
         val jsonArray = JSONArray()
         val jsonObject = JSONObject()
 
-        var imgObj = JSONObject();
-        for (i in 0 until ja.length()) {
-            val obj = ja.optJSONObject(i)
-            if (obj.optString("title").equals("Img")){
-                imgObj = obj
-                ja.remove(i)
-                break
+        var newJa = JSONArray()
+        when(type){
+            EXTERNAL_BOOK_TYPE, INTERNAL_BOOK_TYPE, DISPOSAL_BOOK_TYPE ->{
+                val keysOrder = listOf(
+                    "AssetNo",
+                    "LibraryCallNo",
+                    "Type",
+                    "Title",
+                    "Author",
+                    "Editions_Year",
+                    "Location",
+                    "Borrowstatus",
+                    if (type == DISPOSAL_BOOK_TYPE) "StatusId" else "StatusID",
+                    "Img"
+                )
+
+                val keyObjectMap = LinkedHashMap<String, JSONObject>()
+
+                for (i in 0 until ja.length()) {
+                    val jsonObject = ja.optJSONObject(i)
+                    val jo = jsonObject.optString("title")
+                    val text = jsonObject.optString("text")
+
+                    if (jo in keysOrder) {
+                        var obj = keyObjectMap[jo]
+                        if (obj == null) {
+                            obj = JSONObject()
+                            obj.put("title", jo)
+                            keyObjectMap[jo] = obj
+                        }
+                        obj.put("text", text)
+                    }
+                }
+
+                for (key in keysOrder) {
+                    val obj = keyObjectMap[key]
+                    if (obj != null) {
+                        newJa.put(obj)
+                    }
+                }
+        }
+            EXTERNAL_ARCHIVES_TYPE, INTERNAL_ARCHIVES_TYPE, DISPOSAL_ARCHIVES_TYPE->{
+                val keysOrder = listOf(
+                    "AssetNo",
+                    "ArchivesNo",
+                    "LevelType",
+                    "Type",
+                    "Title",
+                    "BishopName",
+                    "Location",
+                    "Borrowstatus",
+                    if (type == DISPOSAL_ARCHIVES_TYPE) "StatusId" else "StatusID",
+                )
+
+                val keyObjectMap = LinkedHashMap<String, JSONObject>()
+
+                for (i in 0 until ja.length()) {
+                    val jsonObject = ja.optJSONObject(i)
+                    val jo = jsonObject.optString("title")
+                    val text = jsonObject.optString("text")
+
+                    if (jo in keysOrder) {
+                        var obj = keyObjectMap[jo]
+                        if (obj == null) {
+                            obj = JSONObject()
+                            obj.put("title", jo)
+                            keyObjectMap[jo] = obj
+                        }
+                        obj.put("text", text)
+                    }
+                }
+
+                for (key in keysOrder) {
+                    val obj = keyObjectMap[key]
+                    if (obj != null) {
+                        newJa.put(obj)
+                    }
+                }
+            }
+            else ->{
+                newJa.put(ja)
             }
         }
-        if (imgObj.length() != 0){
-            ja.put(imgObj)
-        }
-        jsonObject.put("title", title)
-        jsonObject.put("list", ja)
+
+        jsonObject.put("title", "备用")
+        jsonObject.put("list", newJa)
         jsonArray.put(jsonObject)
         listJsonArray.value = jsonArray
+
     }
 
 }

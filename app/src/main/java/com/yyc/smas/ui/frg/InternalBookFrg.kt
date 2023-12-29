@@ -7,7 +7,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.core.LoadService
@@ -19,7 +18,7 @@ import com.yyc.smas.api.UIHelper
 import com.yyc.smas.base.BaseFragment
 import com.yyc.smas.bean.DataBean
 import com.yyc.smas.databinding.BNotTitleRecyclerBinding
-import com.yyc.smas.ext.EXTERNAL_ARCHIVES_TYPE
+import com.yyc.smas.ext.EXTERNAL_BOOK_TYPE
 import com.yyc.smas.ext.INTERNAL_BOOK_TYPE
 import com.yyc.smas.ext.RFID_BOOK
 import com.yyc.smas.ext.init
@@ -30,7 +29,6 @@ import com.yyc.smas.ext.showLoading
 import com.yyc.smas.ext.showToast
 import com.yyc.smas.mar.eventViewModel
 import com.yyc.smas.util.CacheUtil
-import com.yyc.smas.viewmodel.ExternalModel
 import com.yyc.smas.viewmodel.InternalModel
 import com.yyc.smas.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.ext.nav
@@ -69,7 +67,7 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
                 val bean = mFilterList[position] as DataBean
 //                bean.type = if (bean.type == 1) 0 else 1
 //                setData(position, bean)
-                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo)
+                UIHelper.startDisposalDetailsFrg(nav(), bean, bean.AssetNo, INTERNAL_BOOK_TYPE)
             }
         }
 
@@ -134,7 +132,7 @@ class InternalBookFrg: BaseFragment<InternalModel, BNotTitleRecyclerBinding>() {
                 val split = it.text?.split(",")
                 split?.forEach {it
                     adapter.data.filterIndexed { index, bean ->
-                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it)) || bean.AssetNo.equals(it)
+                        val shouldBeIncluded = (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it, ignoreCase = true)) || bean.AssetNo.equals(it, ignoreCase = true)
                         // 将满足条件的索引添加到 indexList
                         if (shouldBeIncluded) {
                             indexList.add(index)

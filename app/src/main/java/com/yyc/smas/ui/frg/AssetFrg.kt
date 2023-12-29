@@ -165,11 +165,9 @@ class AssetFrg: BaseFragment<AssetModel, FAssetBinding>() {
             mDatabind.includeToolbar.toolbar.initClose(it) {nav().navigateUp()}
         })
 
-
-
         assetModel.epcData.observe(viewLifecycleOwner, {
             if (it == null)return@observe
-            val tagId = it.tagId?.lowercase(Locale.getDefault())
+            val tagId = it.tagId
             mViewModel.viewModelScope.launch(Dispatchers.IO) {
                 //先查找epc
                 var assetLabelBean = assetDao.findLabelTagId(tagId, orderId, roNo, companyID)
@@ -182,19 +180,6 @@ class AssetFrg: BaseFragment<AssetModel, FAssetBinding>() {
                     //全部没有归异常
                     setAssetFailBean(assetDao, it, roNo, companyID)
                 }
-                /*var assetBean = assetDao.findLabelTagId(tagId, orderId, roNo, companyID)
-                if (assetBean != null){
-                    setAssetBean(assetBean, assetDao, it)
-                }else{
-                    //再查找 assetNo
-                    val assetBean = assetDao.findAssetId(tagId, orderId, roNo, companyID)
-                    if (assetBean != null){
-                        setAssetBean(assetBean, assetDao, it)
-                    }else{
-                        //全部没有归异常
-                        setAssetFailBean(assetDao, it, roNo, companyID)
-                    }
-                }*/
             }
         })
 
@@ -242,7 +227,9 @@ class AssetFrg: BaseFragment<AssetModel, FAssetBinding>() {
         if (bean.InventoryStatus == INVENTORY_STOCK)return
         bean.scanTime = TimeUtils.getNowString()
         bean.scanStatus = it.scanStatus
-        bean.LabelTag = it.tagId.toString()
+        if (!bean.AssetNo.equals(it.tagId, ignoreCase = true)){
+            bean.LabelTag = it.tagId.toString()
+        }
         bean.InventoryStatus = INVENTORY_STOCK
         assetDao.update(bean)
         MusicUtils.play()

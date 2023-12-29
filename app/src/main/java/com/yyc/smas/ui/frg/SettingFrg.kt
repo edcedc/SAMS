@@ -28,16 +28,20 @@ class SettingFrg: BaseFragment<SettingModel, FSettingBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         mDatabind.viewmodel = mViewModel
+
         mDatabind.click = ProxyClick()
+        val locale: Locale = Locale.getDefault()
+        val language1: String = locale.language // 获取当前设备的语言代码
+        val country: String = locale.country // 获取当前设备的国家/地区代码
 
         val language = CacheUtil.getLanguage()
         mViewModel.language.set(language)
         when(language){
             getString(R.string.s_chinese) -> {
-                languagePosition = 0
+                languagePosition = 1
             }
             getString(R.string.t_chinese) -> {
-                languagePosition = 1
+                languagePosition = 0
             }
 
             getString(R.string.e_english) -> {
@@ -59,13 +63,13 @@ class SettingFrg: BaseFragment<SettingModel, FSettingBinding>() {
             PopupWindowTool.showListDialog(activity)
                 .asCenterList(getString(R.string.please_language),
                     arrayOf(
-                        getString(R.string.s_chinese),
                         getString(R.string.t_chinese),
+                        getString(R.string.s_chinese),
                         getString(R.string.e_english),
                     ),{ position, text ->
                         when(position){
-                            0 -> mViewModel.language.set(requireActivity().getString(R.string.s_chinese))
-                            1 -> mViewModel.language.set(requireActivity().getString(R.string.t_chinese))
+                            0 -> mViewModel.language.set(requireActivity().getString(R.string.t_chinese))
+                            1 -> mViewModel.language.set(requireActivity().getString(R.string.s_chinese ))
                             2 -> mViewModel.language.set(requireActivity().getString(R.string.e_english))
                         }
                         languagePosition = position
@@ -76,10 +80,10 @@ class SettingFrg: BaseFragment<SettingModel, FSettingBinding>() {
             if (languageChoosePosition != languagePosition){
                 when(languagePosition){
                     0 -> {
-                        LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE)
+                        LanguageUtils.applyLanguage(Locale.TRADITIONAL_CHINESE)
                     }
                     1 ->{
-                        LanguageUtils.applyLanguage(Locale.TRADITIONAL_CHINESE)
+                        LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE)
                     }
                     2 -> {
                         LanguageUtils.applyLanguage(Locale.ENGLISH)

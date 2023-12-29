@@ -56,6 +56,11 @@ class AssetAllFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
                 UIHelper.startAssetDetailsFrg(nav(), bean)
 //                LogUtils.e(bean.LabelTag)
             }
+            setSearchCallback(object :AssetAdapter.SearchCallback{
+                override fun onSearchResults(filteredData: ArrayList<AssetBean>) {
+//                    assetModel.assetTitle.value = getString(R.string.full_list) + "(" + filteredData.size + ")"
+                }
+            })
         }
 
         mViewModel.onRequest(orderId, -1)
@@ -63,7 +68,7 @@ class AssetAllFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
                 super.onResume(owner)
-                assetModel.assetTitle.value = getString(R.string.full_list) + "(" + adapter.data.size + ")"
+                assetModel.assetTitle.value = getString(R.string.full_list) + "(" + adapter.mFilterList.size + ")"
             }
         })
     }
@@ -84,7 +89,8 @@ class AssetAllFrg: BaseFragment<AssetModel, BNotTitleRecyclerBinding>(){
         assetModel.epcUploadData.observe(viewLifecycleOwner, {
             if (it == null || it.InventoryStatus == INVENTORY_FAIL)return@observe
             val index = adapter.data.indexOfFirst {bean ->
-                (!StringUtils.isEmpty(bean.LabelTag) && bean.LabelTag.equals(it.LabelTag)) || bean.AssetNo.equals(it.AssetNo)
+                (!StringUtils.isEmpty(bean.LabelTag) && !bean.LabelTag.equals("null", ignoreCase = true) && bean.LabelTag.equals(it.LabelTag, ignoreCase = true))
+                        || (!StringUtils.isEmpty(bean.AssetNo) && !bean.AssetNo.equals("null", ignoreCase = true) && bean.AssetNo.equals(it.AssetNo, ignoreCase = true))
             }
             if (index != -1){
                 val bean = adapter.data[index]

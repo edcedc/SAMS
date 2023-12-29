@@ -20,7 +20,7 @@ interface ApiService{
     companion object {
 
         private val url =
-//            "192.168.2.31"
+//            "192.168.2.30"
             "47.243.120.137"
 
         var SERVLET_URL = "http://" +

@@ -9,25 +9,23 @@
     <string name="cancel">Cancel</string>
     <string name="out">Exit account</string>
 
+    <string name="no_data" translatable="false">No Data</string>
+    <string name="click_again" translatable="false">Click to try again</string>
     <string name="account">Login Account</string>
     <string name="password">Login Password</string>
     <string name="login">LOGIN</string>
-
     <string name="error_phone">Incorrect username or password</string>
     <string name="hiht_">Please enter complete</string>
     <string name="hiht_1">please enter</string>
-
-    <string name="e_english">English</string>
-    <string name="t_chinese">繁體中文</string>
-    <string name="s_chinese">简体中文</string>
+    <string name="e_english" translatable="false">English</string>
+    <string name="t_chinese" translatable="false">繁體中文</string>
+    <string name="s_chinese" translatable="false">简体中文</string>
     <string name="host">HOST</string>
     <string name="company_id">CLIENT ID</string>
     <string name="please_language">Please select a language</string>
-
     <string name="release_success">Saved successfully</string>
     <string name="download">Sync Data</string>
     <string name="upload">Upload</string>
-
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="update_date">Update date</string>
@@ -37,7 +35,6 @@
     <string name="org">Org./Co</string>
     <string name="phone">Phone</string>
     <string name="location">Location</string>
-
     <string name="stock_take">Stock Take</string>
     <string name="system">System</string>
     <string name="full_list">Full list</string>
@@ -47,9 +44,7 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="save">Save</string>
-
     <string name="download1">Downloading data, please keep the network connection, do not exit the application</string>
-
     <string name="search_assets">Search Rfid</string>
     <string name="detailed">Details</string>
     <string name="asset_no">AssetNo</string>
@@ -61,7 +56,6 @@
     <string name="status">Status</string>
     <string name="upload_image">Image</string>
     <string name="no_labelTag">No LabelTag</string>
-
     <string name="borrow">Borrow</string>
     <string name="borrow_date">Borrow Date</string>
     <string name="telephone">Telephone</string>
@@ -72,7 +66,6 @@
     <string name="archives">Archives</string>
     <string name="qRCode">QRCode</string>
     <string name="submit">Submit</string>
-
     <string name="no_found1">Whether to confirm all uploads.</string>
     <string name="text1">Saving, please wait</string>
     <string name="text2">Click to upload</string>
@@ -83,11 +76,8 @@
     <string name="text7">Please enter remarks</string>
     <string name="text8">Upload successful</string>
     <string name="text9">Fail</string>
-
     <string name="level">Level</string>
-
-    <string name="loading">loading...</string>
-
+    <string name="loading">Uploading...</string>
     <string name="scan_status">Scan Status</string>
     <string name="found_status">Found Status</string>
     <string name="QRCode">QRCode</string>
@@ -97,21 +87,80 @@
     <string name="label_tag1">Label Tag</string>
     <string name="scan_time">Scan Time</string>
     <string name="language">Language</string>
-    <string name="archives_type">ArchivesType</string>
+    <string name="archives_type">Type</string>
     <string name="disposal_model">DisposalModel</string>
-    <string name="level_type">Classification Level</string>
+    <string name="level_type">Level</string>
     <string name="archives_no">File number</string>
-
-
     <string name="login_title1">Welcome to login</string>
     <string name="login_title">HKSKH Archives Management System</string>
     <string name="borrower_user">Borrower User</string>
     <string name="author">Author</string>
-    <string name="library_call_no">Library Call No.</string>
+    <string name="library_call_no">Call No.</string>
     <string name="editions_year">Edition</string>
-    <string name="borrowing_status">Borrowing Status</string>
-    <string name="borrowing0">Appointment In Progress</string>
-    <string name="borrowing1">Borrowing</string>
+    <string name="borrowing_status">Access Condition</string>
     <string name="record_group">Record Group</string>
+    <string name="system_no">System No.</string>
+    <string name="status_1">Unbound</string>
+    <string name="status_2">On Shelf</string>
+    <string name="status_3">Borrowing</string>
+    <string name="status_4">Appointment In Progress</string>
+    <string name="status_5">Delete</string>
+    <string name="status_6">Repairing</string>
+    <string name="status_7">Disposal</string>
+    <string name="status_8">Disposaling</string>
+    <string name="status_9">Abnormal</string>
+    <string name="status_10">Lose</string>
+    <string name="status_20">Internal use only</string>
+    <string name="status_21">Public</string>
+    <string name="status_22">Unavailable</string>
+    <string name="status_23">Transferring</string>
+    <string name="status_24">Repairing</string>
+    <string name="status_100">Sampling Inventory</string>
+    <string name="status_101">All Stocktake</string>
+    <string name="status_102">Counted</string>
+    <string name="status_103">Not Counted</string>
+    <string name="status_104">Inventory In Progress</string>
+    <string name="status_105">Inventory Completed</string>
+    <string name="status_106">Inventory Expired</string>
+    <string name="status_107">Inventory In Preparation</string>
+    <string name="status_110">In Library</string>
+    <string name="status_111">Not Found</string>
+    <string name="status_112">Abnormal</string>
+    <string name="status_116">Scan</string>
+    <string name="status_117">QR Code</string>
+    <string name="status_118">Manually</string>
+    <string name="status_200">Disable</string>
+    <string name="status_201">Enable</string>
+    <string name="status_202">Delete</string>
+    <string name="status_210">Label Used</string>
+    <string name="status_211">Label Can Used</string>
+    <string name="status_212">Damage</string>
+    <string name="status_220">In Use (Internal)</string>
+    <string name="status_225">Reservation Application (Public)</string>
+    <string name="status_226">In Use (Public)</string>
+    <string name="status_227">Overdue (Public)</string>
+    <string name="status_230">Return Normal</string>
+    <string name="status_231">Overdue (borrowing and returning)</string>
+    <string name="status_232">Returned</string>
+    <string name="status_240">Disposal Apply</string>
+    <string name="status_241">Disposal Processing</string>
+    <string name="status_242">Disposal Completed</string>
+    <string name="status_250">Disposal Initialization</string>
+    <string name="status_251">Disposal Accept</string>
+    <string name="status_252">Disposal Reject</string>
+    <string name="status_260">Registration Notice</string>
+    <string name="status_261">Appointment Notice</string>
+    <string name="status_262">Lending Notice</string>
+    <string name="status_263">Return Notice</string>
+    <string name="status_264">Disposal Notice</string>
+    <string name="status_265">Inventory Notice</string>
+    <string name="status_266">Delete Asset Notice</string>
+    <string name="status_300">Digital Copies Available</string>
+    <string name="status_301">Lend</string>
+    <string name="status_302">Hold</string>
+    <string name="status_303">Transferring</string>
+    <string name="status_304">Close</string>
+    <string name="bishop_name">Bishops</string>
+    <string name="images">Images</string>
 
 </resources>

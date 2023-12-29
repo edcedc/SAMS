@@ -125,12 +125,14 @@ class MainActivity : BaseActivity<RfidModel, AMainBinding>(), IKeyRecv {
                     showToast("Connection failed")
                 }
             }else{
-                mViewModel.isScan.set(false)
-                mViewModel.onClean()
-                mViewModel.disconn()
+                if (mViewModel.isScan.get()){
+                    mViewModel.isScan.set(false)
+                    mViewModel.onClean()
+                    mViewModel.disconn()
 //                mViewModel.initStop()
-                mViewModel.stopStat()
-                LogUtils.e("读卡断开")
+                    mViewModel.stopStat()
+                    LogUtils.e("读卡断开")
+                }
             }
         })
 

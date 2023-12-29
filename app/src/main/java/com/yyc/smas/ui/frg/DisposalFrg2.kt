@@ -24,7 +24,7 @@ import me.hgj.jetpackmvvm.ext.nav
 /**
  * @Author nike
  * @Date 2023/7/27 11:43
- * @Description RFID 列表
+ * @Description 注销
  */
 class DisposalFrg2: BaseFragment<DisposalModel, FDisposal2Binding>() {
 
